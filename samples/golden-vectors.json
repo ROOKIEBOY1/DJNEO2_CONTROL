@@ -1,0 +1,242 @@
+{
+  "description": "Deterministic reference encoding, NOT packets to blindly replay. Numeric arguments are decimal; byte arguments have hex fields. Existing unit tests also assert independent captured literals.",
+  "vectors": [
+    {
+      "name": "handshake_48_bytes",
+      "function": "handshake.build_handshake",
+      "args": [
+        60383,
+        24312
+      ],
+      "expected_hex": "3080dfeb00000084f85e64006400c005140000640000019001c005140000640014006400c00514000064000101040102",
+      "expected_bytes": 48
+    },
+    {
+      "name": "takeoff_inner",
+      "function": "duml.encode_frame",
+      "args": [
+        2,
+        3,
+        38783,
+        64,
+        3,
+        42,
+        {
+          "hex": "01"
+        }
+      ],
+      "expected_hex": "550e046602037f9740032a01dd32",
+      "expected_bytes": 14
+    },
+    {
+      "name": "landing_inner",
+      "function": "duml.encode_frame",
+      "args": [
+        2,
+        3,
+        38784,
+        64,
+        3,
+        42,
+        {
+          "hex": "02"
+        }
+      ],
+      "expected_hex": "550e04660203809740032a026cfd",
+      "expected_bytes": 14
+    },
+    {
+      "name": "takeoff_tunnel",
+      "function": "fly_command.build_fly_tunnel",
+      "args": [
+        1,
+        38783,
+        22089,
+        {
+          "hex": "8e338dbb02"
+        }
+      ],
+      "expected_hex": "553104533be94956005101550e046602037f9740032a01dd328e338dbb0249560000ffffffff018200000000000000aeb9",
+      "expected_bytes": 49
+    },
+    {
+      "name": "reference_channel4_takeoff",
+      "function": "control_packets.build_fly_packet",
+      "args": [
+        60383,
+        24312,
+        46496,
+        24312,
+        51327,
+        49574,
+        1
+      ],
+      "expected_hex": "5380dfeb000004e3a0b5a0b500000000f85ef85e00000000f85ef85e000000003100553104533be97fc8005101550e04660203a6c140032a01971c8e338dbb027fc80000ffffffff018200000000000000d502",
+      "expected_bytes": 83
+    },
+    {
+      "name": "neutral_stick_payload",
+      "function": "neutral_stick.build_stick_payload",
+      "args": [
+        1024,
+        1024,
+        1024,
+        1024,
+        1122867
+      ],
+      "expected_hex": "010d0000042000010840000200000655010456083322110000000000",
+      "expected_bytes": 28
+    },
+    {
+      "name": "forward_payload",
+      "function": "neutral_stick.build_stick_payload",
+      "args": [
+        1024,
+        1359,
+        1024,
+        1024,
+        1122867
+      ],
+      "expected_hex": "010d00007c2a00010840000200000655010456083322110000000000",
+      "expected_bytes": 28
+    },
+    {
+      "name": "backward_payload",
+      "function": "neutral_stick.build_stick_payload",
+      "args": [
+        1024,
+        689,
+        1024,
+        1024,
+        1122867
+      ],
+      "expected_hex": "010d00008c1500010840000200000655010456083322110000000000",
+      "expected_bytes": 28
+    },
+    {
+      "name": "up_payload",
+      "function": "neutral_stick.build_stick_payload",
+      "args": [
+        1024,
+        1024,
+        1359,
+        1024,
+        1122867
+      ],
+      "expected_hex": "010d000004e053010840000200000655010456083322110000000000",
+      "expected_bytes": 28
+    },
+    {
+      "name": "down_payload",
+      "function": "neutral_stick.build_stick_payload",
+      "args": [
+        1024,
+        1024,
+        689,
+        1024,
+        1122867
+      ],
+      "expected_hex": "010d00000460ac000840000200000655010456083322110000000000",
+      "expected_bytes": 28
+    },
+    {
+      "name": "left_payload",
+      "function": "neutral_stick.build_stick_payload",
+      "args": [
+        689,
+        1024,
+        1024,
+        1024,
+        1122867
+      ],
+      "expected_hex": "010d00b1022000010840000200000655010456083322110000000000",
+      "expected_bytes": 28
+    },
+    {
+      "name": "right_payload",
+      "function": "neutral_stick.build_stick_payload",
+      "args": [
+        1359,
+        1024,
+        1024,
+        1024,
+        1122867
+      ],
+      "expected_hex": "010d004f052000010840000200000655010456083322110000000000",
+      "expected_bytes": 28
+    },
+    {
+      "name": "turn_left_payload",
+      "function": "neutral_stick.build_stick_payload",
+      "args": [
+        1024,
+        1024,
+        1024,
+        689,
+        1122867
+      ],
+      "expected_hex": "010d0000042000630540000200000655010456083322110000000000",
+      "expected_bytes": 28
+    },
+    {
+      "name": "turn_right_payload",
+      "function": "neutral_stick.build_stick_payload",
+      "args": [
+        1024,
+        1024,
+        1024,
+        1359,
+        1122867
+      ],
+      "expected_hex": "010d00000420009f0a40000200000655010456083322110000000000",
+      "expected_bytes": 28
+    },
+    {
+      "name": "circle_select",
+      "function": "circle_protocol.build_circle_selection_frame",
+      "args": [
+        1
+      ],
+      "expected_hex": "551504a9021701004003f9878867a305000000806a",
+      "expected_bytes": 21
+    },
+    {
+      "name": "circle_radius_2m",
+      "function": "circle_protocol.build_radius_frame",
+      "args": [
+        2.0,
+        2
+      ],
+      "expected_hex": "551504a9029202004003f946932703000000405b47",
+      "expected_bytes": 21
+    },
+    {
+      "name": "circle_radius_5m_encoding_only",
+      "function": "circle_protocol.build_radius_frame",
+      "args": [
+        5.0,
+        3
+      ],
+      "expected_hex": "551504a9029203004003f9469327030000a04009ed",
+      "expected_bytes": 21
+    },
+    {
+      "name": "circle_start",
+      "function": "circle_protocol.build_circle_start_frame",
+      "args": [
+        4
+      ],
+      "expected_hex": "55100456029204004023130105009402",
+      "expected_bytes": 16
+    },
+    {
+      "name": "circle_stop_empty_payload",
+      "function": "circle_protocol.build_circle_stop_frame",
+      "args": [
+        5
+      ],
+      "expected_hex": "550d04330292050040231548d2",
+      "expected_bytes": 13
+    }
+  ]
+}

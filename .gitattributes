@@ -1,2 +1,2 @@
-# Preserve snapshot bytes so SOURCE_MANIFEST hashes survive clone/checkout.
+# Keep captured literals and reference vectors byte-stable across platforms.
 * -text

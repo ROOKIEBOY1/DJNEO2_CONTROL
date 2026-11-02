@@ -1,0 +1,32 @@
+{
+  "base_commit": "cf8ccf7",
+  "description": "Extracted control reference. Removed UI/CLI, voice, camera and media modules; renamed imports.",
+  "modules": {
+    "core/outer.py": "开发基地1/tools/capture_protocol.py",
+    "core/messages.py": "开发基地1/tools/capture_messages.py",
+    "core/duml.py": "开发基地1/tools/offline_takeoff.py",
+    "core/handshake.py": "开发基地1/tools/handshake_probe.py",
+    "core/fly_command.py": "开发基地1/tools/fly_command.py",
+    "core/control_packets.py": "开发基地1/tools/control_packets.py",
+    "core/initial_010a.py": "开发基地1/tools/initial_010a.py",
+    "core/neutral_stick.py": "开发基地1/tools/neutral_stick.py",
+    "core/reliable_transport.py": "开发基地1/tools/reliable_transport.py",
+    "core/registration_exchange.py": "开发基地1/tools/registration_exchange.py",
+    "core/registration_schema.py": "开发基地1/tools/registration_schema.py",
+    "core/routing_sequences.py": "开发基地1/tools/routing_sequences.py",
+    "core/movement_commands.py": "开发基地1/tools/movement_commands.py",
+    "core/landing_status.py": "开发基地1/tools/landing_status.py",
+    "core/subject_observation.py": "开发基地1/tools/subject_observation.py",
+    "core/circle_protocol.py": "开发基地1/tools/circle_protocol.py",
+    "core/native_circle.py": "开发基地1/tools/native_circle.py",
+    "core/flight_controller.py": "开发基地1/tools/flight_console.py",
+    "core/video_packets.py": "开发基地1/tools/video_stream.py:VideoAssembler"
+  },
+  "excluded": [
+    "Desktop CLI/UI",
+    "offline speech and voice dispatch",
+    "camera and media transfer",
+    "old HarmonyOS application shell",
+    "raw capture analysis and private-fixture regression tests"
+  ]
+}

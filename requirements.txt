@@ -1,5 +1,0 @@
-# Python 3.12; versions installed in the original working environment.
-# Handshake/control use the standard library. These enable capture/video tools.
-av==19.0.2
-Pillow==13.0.0
-python-pcapng==2.1.1
