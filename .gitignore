@@ -1,0 +1,40 @@
+# Local runtimes, dependencies and build output
+.venv/
+.抓包环境/
+__pycache__/
+*.py[cod]
+node_modules/
+oh_modules/
+build/
+.hvigor/
+.idea/
+.pytest_cache/
+
+# Raw captures, originals and per-device runtime state
+**/captures/**
+!**/captures/README.md
+**/.state/
+*.pcap
+*.pcapng
+*.etl
+*.mp4
+*.jpg
+*.jpeg
+*.log
+
+# Machine-specific paths and credentials
+local.properties
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.cer
+*.p7b
+*.hap
+*.hsp
+*.app

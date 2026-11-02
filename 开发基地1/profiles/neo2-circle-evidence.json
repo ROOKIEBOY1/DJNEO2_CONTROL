@@ -1,0 +1,100 @@
+{
+  "operator_labels": {
+    "radius_before_m": 10,
+    "radius_after_m": 2,
+    "circle_runs": 2,
+    "manual_stop": false,
+    "completion": "both_automatic"
+  },
+  "stop_trial_operator_label": "clicked_stop_and_aircraft_hovered",
+  "evidence": {
+    "circle_selection": {
+      "source": "circle-20261029.pcapng",
+      "at": 1793264424.958781,
+      "side": "app",
+      "session": 32322,
+      "frame_hex": "551504a90217a2c84003f9878867a30500000039e4",
+      "tunneled": true
+    },
+    "radius_write_2m": {
+      "source": "circle-20261029.pcapng",
+      "at": 1793264434.202466,
+      "side": "app",
+      "session": 32322,
+      "frame_hex": "551504a90292a6cb4003f946932703000000404f56",
+      "tunneled": true
+    },
+    "radius_write_ack": {
+      "source": "circle-20261029.pcapng",
+      "at": 1793264434.2515528,
+      "side": "plane",
+      "session": 32322,
+      "frame_hex": "551604fc9202a6cbc003f9004693270300000040c059",
+      "tunneled": true
+    },
+    "start_first": {
+      "source": "circle-20261029-actions.pcapng",
+      "at": 1793264669.1956148,
+      "side": "app",
+      "session": 32322,
+      "frame_hex": "5510045602925e8d4023130105009cb2",
+      "tunneled": true
+    },
+    "start_first_ack": {
+      "source": "circle-20261029-actions.pcapng",
+      "at": 1793264669.263623,
+      "side": "plane",
+      "session": 32322,
+      "frame_hex": "550e046692025e8dc0231300571a",
+      "tunneled": true
+    },
+    "start_second": {
+      "source": "circle-20261029-actions.pcapng",
+      "at": 1793264706.56894,
+      "side": "app",
+      "session": 32322,
+      "frame_hex": "5510045602921798402313010500043e",
+      "tunneled": true
+    },
+    "start_second_ack": {
+      "source": "circle-20261029-actions.pcapng",
+      "at": 1793264706.611307,
+      "side": "plane",
+      "session": 32322,
+      "frame_hex": "550e046692021798c0231300e1af",
+      "tunneled": false
+    },
+    "stop_trial_start": {
+      "source": "circle-stop-20261029-172351.pcapng",
+      "at": 1793265965.695412,
+      "side": "app",
+      "session": 14846,
+      "frame_hex": "551004560292b19640231301050086d8",
+      "tunneled": true
+    },
+    "stop_trial_start_ack": {
+      "source": "circle-stop-20261029-172351.pcapng",
+      "at": 1793265965.737658,
+      "side": "plane",
+      "session": 14846,
+      "frame_hex": "550e04669202b196c02313006156",
+      "tunneled": true
+    },
+    "stop_request": {
+      "source": "circle-stop-20261029-172351.pcapng",
+      "at": 1793265980.117544,
+      "side": "app",
+      "session": 14846,
+      "frame_hex": "550d04330292d69a402315d202",
+      "tunneled": true
+    },
+    "stop_ack": {
+      "source": "circle-stop-20261029-172351.pcapng",
+      "at": 1793265980.137233,
+      "side": "plane",
+      "session": 14846,
+      "frame_hex": "550e04669202d69ac0231500e1ee",
+      "tunneled": false
+    }
+  }
+}

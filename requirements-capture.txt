@@ -1,0 +1,3 @@
+-r requirements.txt
+# Optional: iPhone USB packet-capture tooling and associated regression tests.
+pymobiledevice3==11.45.0

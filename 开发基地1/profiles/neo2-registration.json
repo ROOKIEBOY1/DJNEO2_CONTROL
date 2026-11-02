@@ -1,0 +1,130 @@
+{
+  "source_capture": "cold-all-retry-20261027.pcapng",
+  "source_sha256": "38b124643677b309c2dc940d80711ea8460a1b729644846caf64762d191e3d7d",
+  "source_session": "0x4a8c",
+  "templates": {
+    "heartbeat": {
+      "sender": 238,
+      "receiver": 233,
+      "flags": 0,
+      "command_set": 81,
+      "command_id": 19,
+      "tunneled": true,
+      "payload_hex": "0504020037303038454533442d353939372d343039372d00010101000000000000010000010101020000001ce42100000080a654000000"
+    },
+    "info_direct": {
+      "sender": 238,
+      "receiver": 233,
+      "flags": 64,
+      "command_set": 81,
+      "command_id": 52,
+      "tunneled": false,
+      "payload_hex": "000402000037303038454533442d353939372d343039372d0000000000000000000000000000"
+    },
+    "register": {
+      "sender": 2,
+      "receiver": 7,
+      "flags": 64,
+      "command_set": 7,
+      "command_id": 147,
+      "tunneled": false,
+      "payload_hex": "012b230037303038454533442d353939372d343039372d00"
+    },
+    "capabilities": {
+      "sender": 238,
+      "receiver": 233,
+      "flags": 64,
+      "command_set": 81,
+      "command_id": 65,
+      "tunneled": true,
+      "payload_hex": "1001008e338dbb260006112000000000000000001f000100000000000a112000000000000000007d07000000000000"
+    },
+    "open": {
+      "sender": 238,
+      "receiver": 233,
+      "flags": 64,
+      "command_set": 81,
+      "command_id": 2,
+      "tunneled": true,
+      "payload_hex": "0504040000000200020000"
+    },
+    "identity": {
+      "sender": 238,
+      "receiver": 233,
+      "flags": 64,
+      "command_set": 81,
+      "command_id": 6,
+      "tunneled": true,
+      "payload_hex": "04020037303038454533442d353939372d343039372d00000024313538314641365143323542533031434a4747370000000000"
+    },
+    "info_tunnel": {
+      "sender": 238,
+      "receiver": 233,
+      "flags": 64,
+      "command_set": 81,
+      "command_id": 52,
+      "tunneled": true,
+      "payload_hex": "000402000037303038454533442d353939372d343039372d0000000000000014000000000000"
+    },
+    "response_41:13:2001": {
+      "sender": 238,
+      "receiver": 233,
+      "flags": 192,
+      "command_set": 81,
+      "command_id": 65,
+      "tunneled": true,
+      "payload_hex": "00200001008e338dbb260006112000000000000000001f000100000000000a112000000000000000007d07000000000000"
+    },
+    "response_41:65:0002": {
+      "sender": 238,
+      "receiver": 233,
+      "flags": 192,
+      "command_set": 81,
+      "command_id": 65,
+      "tunneled": true,
+      "payload_hex": "00000002008e338dbb08000b0006000a000000"
+    },
+    "response_08:49:0000": {
+      "sender": 238,
+      "receiver": 233,
+      "flags": 192,
+      "command_set": 81,
+      "command_id": 8,
+      "tunneled": true,
+      "payload_hex": "000024313538314641365143323542533031434a47473700"
+    },
+    "response_06:51:0000": {
+      "sender": 238,
+      "receiver": 233,
+      "flags": 192,
+      "command_set": 81,
+      "command_id": 6,
+      "tunneled": true,
+      "payload_hex": "000024313538314641365143323542533031434a47473700"
+    },
+    "response_41:65:2101ab63daaa": {
+      "sender": 238,
+      "receiver": 233,
+      "flags": 192,
+      "command_set": 81,
+      "command_id": 65,
+      "tunneled": true,
+      "payload_hex": "00000002008e338dbb08000b0006000a000000"
+    }
+  },
+  "response_rules": {
+    "41:b7ffb27be6444be05d4e765d9b56db4588476c1d50e4649e25150c3aac094888": "response_41:13:2001",
+    "41:5ee41e4d4b36019a20a63ef7b8f3c253d59b6f3a695a5ae2ba4334634698af20": "response_41:65:0002",
+    "08:4a3f8fc6de59228d1040df889a6e8dd8dbe76edbf31362b08c477520ca940622": "response_08:49:0000",
+    "06:d3d56114c0e8a19ca625dc586aebfee5d53d209adaf6166c438c00dfbd9beb10": "response_06:51:0000",
+    "41:2101ab63daaa66203fc61cc539448cdc6090803539126786f047cd355633cfda": "response_41:65:2101ab63daaa"
+  },
+  "additional_sources": [
+    {
+      "capture": "dji-fly-20261027-1949.pcapng",
+      "sha256": "90ae02b58f9d510546792168f28391b134fdaf305370484018083ecae721ffab",
+      "session": "0xd54f",
+      "resolved_log": "control-attempt-20261029-100725.json"
+    }
+  ]
+}

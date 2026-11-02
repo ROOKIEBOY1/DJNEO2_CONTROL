@@ -1,0 +1,1061 @@
+{
+  "snapshot_date": "2026-11-02",
+  "description": "Source copies; no raw captures or runtime state",
+  "files": [
+    {
+      "path": "开发基地1/.gitignore",
+      "bytes": 143,
+      "sha256": "9a9558a2b21f859e468d343719456532a6fed40b24d93ceef067e248a028be11"
+    },
+    {
+      "path": "开发基地1/AppScope/app.json5",
+      "bytes": 245,
+      "sha256": "9db6fb352e304f2b216cbee1187b2356cb9011758c8c6bd011fc4465ffd67f37"
+    },
+    {
+      "path": "开发基地1/AppScope/resources/base/element/string.json",
+      "bytes": 93,
+      "sha256": "88b81491d2c9d495956dff384693ef19c135cd9598988c49b5455f92494ad80a"
+    },
+    {
+      "path": "开发基地1/AppScope/resources/base/media/background.png",
+      "bytes": 91942,
+      "sha256": "497edeafc51af043c73e72ee8c4fbac4663357ef1ba275c0289f31a366b26239"
+    },
+    {
+      "path": "开发基地1/AppScope/resources/base/media/foreground.png",
+      "bytes": 15325,
+      "sha256": "61a796d5a9fc5853e9cd0f1e3e730896a6bcb94a34a37765c4d1959bf64dfa43"
+    },
+    {
+      "path": "开发基地1/AppScope/resources/base/media/layered_image.json",
+      "bytes": 109,
+      "sha256": "3d18dcd7ed9e7d3d2c54c20cb80a44eb4877c661131c68a46e20b6e19d0bb476"
+    },
+    {
+      "path": "开发基地1/build-profile.json5",
+      "bytes": 585,
+      "sha256": "d18ac018d65ce0fc5263307cdf57e747ac903a31825a5504acc806eb57228dcd"
+    },
+    {
+      "path": "开发基地1/code-linter.json5",
+      "bytes": 854,
+      "sha256": "f557c3bcdb40c64c986bffed9628310cc7a79fb7d2642c1c8b8d265fd92e25ad"
+    },
+    {
+      "path": "开发基地1/docs/superpowers/plans/2026-10-28-python-flight-console.md",
+      "bytes": 3971,
+      "sha256": "eaf09f75be96592506ff4e514de05fcad172b6e615817f62a4074edc5739123f"
+    },
+    {
+      "path": "开发基地1/entry/build-profile.json5",
+      "bytes": 540,
+      "sha256": "165c5e02e368cfae38401dbfc371a106ab3f5a8a1ed05078625c0f1c573476dc"
+    },
+    {
+      "path": "开发基地1/entry/hvigorfile.ts",
+      "bytes": 227,
+      "sha256": "67cc02aa9ccf2f3a2c58e7fee4b6e3a00ffb6128c11f76b7fec5f00ad2d63581"
+    },
+    {
+      "path": "开发基地1/entry/obfuscation-rules.txt",
+      "bytes": 1024,
+      "sha256": "c7f48577fcd27a346883a1a527653eff132cab29666133a49e1ec4d372ec5a93"
+    },
+    {
+      "path": "开发基地1/entry/oh-package.json5",
+      "bytes": 183,
+      "sha256": "5721fda56a382803c6c18c8f86208fd5a5548d2fa5e045c9e0b52c48d9220e7c"
+    },
+    {
+      "path": "开发基地1/entry/src/main/ets/control/SelfTest.ets",
+      "bytes": 7965,
+      "sha256": "3f7982c68644bfb4a5e95bdafa4565e31e45e514559562e50a80a8918f4fc7c5"
+    },
+    {
+      "path": "开发基地1/entry/src/main/ets/control/Ticker.ets",
+      "bytes": 2758,
+      "sha256": "199795800f16fbadf3367a46e8f2d8fd067b63c093011a88d4364d8f36c98011"
+    },
+    {
+      "path": "开发基地1/entry/src/main/ets/entryability/EntryAbility.ets",
+      "bytes": 1772,
+      "sha256": "87c617546bf2f6e9a037388096ea69eb252a0948246b96449f070d79ef08de6e"
+    },
+    {
+      "path": "开发基地1/entry/src/main/ets/entrybackupability/EntryBackupAbility.ets",
+      "bytes": 522,
+      "sha256": "ae94f286234d41ad5fa9f70bfd11f61e2f609994d6f16687d1ce4ec442115e5d"
+    },
+    {
+      "path": "开发基地1/entry/src/main/ets/pages/Control.ets",
+      "bytes": 13476,
+      "sha256": "b82d11a21a6c1e0784c14d93bc63ee6ea97f661be0a04802f62132833bf025a4"
+    },
+    {
+      "path": "开发基地1/entry/src/main/ets/pages/Index.ets",
+      "bytes": 6209,
+      "sha256": "212abc981e67cc7b799f27ae4073492c5d66a86e5c8e5ad0e6d55e9aa6e1a458"
+    },
+    {
+      "path": "开发基地1/entry/src/main/ets/pages/Selftest.ets",
+      "bytes": 2325,
+      "sha256": "fbdca8dece0d620c1e0a27bc214f0e7681a2ddf252e48cc9c12ca951e4b48622"
+    },
+    {
+      "path": "开发基地1/entry/src/main/ets/protocol/Commands.ets",
+      "bytes": 2443,
+      "sha256": "aa1fc6c82b3366899f2eff3565c717eaa6bb12e808dfe700f53076b852edf998"
+    },
+    {
+      "path": "开发基地1/entry/src/main/ets/protocol/Duml.ets",
+      "bytes": 7018,
+      "sha256": "9d75df0565e6afd52fbb33ca4442cad8758e797bcbfbced7c80668eac1ec68c3"
+    },
+    {
+      "path": "开发基地1/entry/src/main/ets/protocol/Framing.ets",
+      "bytes": 3744,
+      "sha256": "c4aefdeffd86dee3871aebec13dda7a04bdfd8dfe5887301565a7aaeb55b8abf"
+    },
+    {
+      "path": "开发基地1/entry/src/main/ets/protocol/Inspector.ets",
+      "bytes": 10303,
+      "sha256": "27ab8405c3f0d6a2cc39f5383e2318b4272392436c8c88ecd42925616169f47b"
+    },
+    {
+      "path": "开发基地1/entry/src/main/ets/protocol/Stick.ets",
+      "bytes": 5192,
+      "sha256": "46abf0f3c7e57400ad70b050537dc5613717bb047295f8db593eca43aa31cc8c"
+    },
+    {
+      "path": "开发基地1/entry/src/main/ets/protocol/Vectors.ets",
+      "bytes": 4703,
+      "sha256": "74553ee7948e0db7eefedfd77d177f5cd3e64fdd6af2cc5d1eb50d7b43ebd41b"
+    },
+    {
+      "path": "开发基地1/entry/src/main/ets/transport/Permissions.ets",
+      "bytes": 3010,
+      "sha256": "97b7301744f7f1f5e0bd42000ca34bba910a42f2d70fb589a2806877408b3612"
+    },
+    {
+      "path": "开发基地1/entry/src/main/ets/transport/Prober.ets",
+      "bytes": 5646,
+      "sha256": "fbb46bfa171a0448ae8733342cd6ae3ce3d555206b48993615e4dbbdeca0ab5f"
+    },
+    {
+      "path": "开发基地1/entry/src/main/ets/transport/UdpDatalink.ets",
+      "bytes": 4534,
+      "sha256": "7882f1b9cb9d8a56195c42a70b1d572e40e748d139846f1036c74b77215af609"
+    },
+    {
+      "path": "开发基地1/entry/src/main/ets/transport/WifiLink.ets",
+      "bytes": 5753,
+      "sha256": "b7c9651ea214a03da07f810dd040c2bb574960b98f96a27ec76cccb5f3927b3b"
+    },
+    {
+      "path": "开发基地1/entry/src/main/module.json5",
+      "bytes": 1889,
+      "sha256": "c578486de8bac11d2ea131d4e48886d3103617e2821e1f6e01b07c3260fe80c7"
+    },
+    {
+      "path": "开发基地1/entry/src/main/resources/base/element/color.json",
+      "bytes": 105,
+      "sha256": "40dce2e2f49200e562eaad66d43f3212f4371cafd2c83c558c2cb6401434ef52"
+    },
+    {
+      "path": "开发基地1/entry/src/main/resources/base/element/float.json",
+      "bytes": 100,
+      "sha256": "3ad317ad8b46b69683fce81f0e5b808dfde752594ec0334691917af7b5383a12"
+    },
+    {
+      "path": "开发基地1/entry/src/main/resources/base/element/string.json",
+      "bytes": 247,
+      "sha256": "81bbf40885bba06ac0693ce6de7a48cff51c0a01ff6c00cdb32ecda53709e3f3"
+    },
+    {
+      "path": "开发基地1/entry/src/main/resources/base/media/background.png",
+      "bytes": 91942,
+      "sha256": "497edeafc51af043c73e72ee8c4fbac4663357ef1ba275c0289f31a366b26239"
+    },
+    {
+      "path": "开发基地1/entry/src/main/resources/base/media/foreground.png",
+      "bytes": 8805,
+      "sha256": "57e549283f255505a649042f36a1d6793c307a69a94c9fa7e27a38af38ddbe8c"
+    },
+    {
+      "path": "开发基地1/entry/src/main/resources/base/media/layered_image.json",
+      "bytes": 109,
+      "sha256": "3d18dcd7ed9e7d3d2c54c20cb80a44eb4877c661131c68a46e20b6e19d0bb476"
+    },
+    {
+      "path": "开发基地1/entry/src/main/resources/base/media/startIcon.png",
+      "bytes": 20093,
+      "sha256": "567c7c0c7a321ca180e010ad880f0f7519f6d351ac2b9665e2ee710e7cfe7778"
+    },
+    {
+      "path": "开发基地1/entry/src/main/resources/base/profile/backup_config.json",
+      "bytes": 36,
+      "sha256": "9447811de67729d65b6c0d76720ce53dad97f70a4b0bbe1946a8dc1c7de717f5"
+    },
+    {
+      "path": "开发基地1/entry/src/main/resources/base/profile/main_pages.json",
+      "bytes": 80,
+      "sha256": "e5a6135ea5599a69f2304fdb2915f3c29561857f3fceab880ca11c56963c4a98"
+    },
+    {
+      "path": "开发基地1/entry/src/main/resources/dark/element/color.json",
+      "bytes": 105,
+      "sha256": "d6be6bfa9cfce320f6bb9b92dd09614db27e16bc2c9c90edf057bd682dc3ecbf"
+    },
+    {
+      "path": "开发基地1/entry/src/mock/mock-config.json5",
+      "bytes": 3,
+      "sha256": "8eb95bcbc154530931e15fc418c8b1fe991095671409552099ea1aa596999ede"
+    },
+    {
+      "path": "开发基地1/entry/src/ohosTest/ets/test/Ability.test.ets",
+      "bytes": 1734,
+      "sha256": "8600c6681413e2ee3283671c6a67c2bb1421726559163aca8596ff17d2a389d6"
+    },
+    {
+      "path": "开发基地1/entry/src/ohosTest/ets/test/List.test.ets",
+      "bytes": 99,
+      "sha256": "c2300b6cb78c4e2469e72ce7d0d79f5207bc5004f14cdac0bbf859da248dad15"
+    },
+    {
+      "path": "开发基地1/entry/src/ohosTest/module.json5",
+      "bytes": 187,
+      "sha256": "a5b9e3dc7979f961a92ae014ad0f380212f6e83ea6090d512800250640b9bcc0"
+    },
+    {
+      "path": "开发基地1/entry/src/test/List.test.ets",
+      "bytes": 105,
+      "sha256": "268e4980ef2fdfe0c7ff6a19402bc214ab90f25807998098d2513cc50e9dd86b"
+    },
+    {
+      "path": "开发基地1/entry/src/test/LocalUnit.test.ets",
+      "bytes": 1624,
+      "sha256": "ab72e1fa03e7c61ec51a52fe56fd366f66aa1a4415e18c7953daf5be14f488b7"
+    },
+    {
+      "path": "开发基地1/hvigor/hvigor-config.json5",
+      "bytes": 1482,
+      "sha256": "5d3f095eedc3f393c057a3bdf2fa40a1ac4d115755b2c8a43825be9ac90bbc9b"
+    },
+    {
+      "path": "开发基地1/hvigorfile.ts",
+      "bytes": 227,
+      "sha256": "383227660c07fa9335caf3e65b8975c65fcbcc8b910ba84d0bc67b22afcd56cd"
+    },
+    {
+      "path": "开发基地1/oh-package-lock.json5",
+      "bytes": 1002,
+      "sha256": "738d44a280f1bec5bbcac8cf183d8d02c87c856d45768a02dadd2feba404beef"
+    },
+    {
+      "path": "开发基地1/oh-package.json5",
+      "bytes": 211,
+      "sha256": "46e90386c64a3a0206a1b2fb09d8b7066263a82ab1a3e124ee521509e1657d24"
+    },
+    {
+      "path": "开发基地1/profiles/neo2-circle-evidence.json",
+      "bytes": 2955,
+      "sha256": "c43c790d358f0d6cbce7e7bbdc361cf49273cdf64ece0ca64f5886557684c1ce"
+    },
+    {
+      "path": "开发基地1/profiles/neo2-registration.json",
+      "bytes": 4197,
+      "sha256": "bccd1cab56b358be01594a875493c1126b9cbb29bd0882801bb724d3cac2fdd6"
+    },
+    {
+      "path": "开发基地1/README.md",
+      "bytes": 12587,
+      "sha256": "232cea3bf15f58af8e17b69549995f31e669a725d783d7a81f6160368b006332"
+    },
+    {
+      "path": "开发基地1/tools/analyze_camera_media.py",
+      "bytes": 5627,
+      "sha256": "325977e267260bbfc199402fa4185d51fa1c1f4851ab869043f6be363008ba95"
+    },
+    {
+      "path": "开发基地1/tools/analyze_capture.py",
+      "bytes": 4214,
+      "sha256": "50042ba377bec83b9ff9358ae7fa0179f1df5cf10128aafc023bf0d0bada0e6e"
+    },
+    {
+      "path": "开发基地1/tools/analyze_circle_capture.py",
+      "bytes": 8760,
+      "sha256": "41d20db880a4ad96d59de6a2313232cc6bfb50f7ca53369a18c0c18bfda2ba9b"
+    },
+    {
+      "path": "开发基地1/tools/analyze_control_attempt.py",
+      "bytes": 2535,
+      "sha256": "2fdf2ca8fe16cc4bc105fef6cc1c3ffefea075dc9632d9140fbfdb2b590f48c9"
+    },
+    {
+      "path": "开发基地1/tools/analyze_device_query_attempt.py",
+      "bytes": 3357,
+      "sha256": "b4e6dcb8ce8fbc36ba02646d1ef2114b93922598f8dd31c8c1ebcb95b3fb1257"
+    },
+    {
+      "path": "开发基地1/tools/analyze_ground_short.py",
+      "bytes": 3409,
+      "sha256": "fcb89a97be0f922fc73fcb90dba73de67964ca67a10dfce0a7ca5a787097be48"
+    },
+    {
+      "path": "开发基地1/tools/analyze_landing_attempt.py",
+      "bytes": 4396,
+      "sha256": "3b21e5382a2a7c72b061349804f0d2c457f4239bde3b272b80e493b6a9f2834f"
+    },
+    {
+      "path": "开发基地1/tools/analyze_pc_capture.py",
+      "bytes": 1161,
+      "sha256": "85eda3087f106da02fb11aeb899983b746ad0c6271f4c7780b09edf237ddf3a7"
+    },
+    {
+      "path": "开发基地1/tools/analyze_subject_capture.py",
+      "bytes": 7161,
+      "sha256": "b2cf387a92617ebf33bb35606a65efe168bbc92fe40a652141189ead65ead5f9"
+    },
+    {
+      "path": "开发基地1/tools/audit_connection_queries.py",
+      "bytes": 2268,
+      "sha256": "7f41990b9b6228e806ffaf7254be34e874705568b7d111a3743077f6d3d2be74"
+    },
+    {
+      "path": "开发基地1/tools/audit_registration_transactions.py",
+      "bytes": 1574,
+      "sha256": "c6a66a5e7edf16a2386a65b05b492e839c98b78877d0f99204684752a70f8a66"
+    },
+    {
+      "path": "开发基地1/tools/audit_tunnel_sequences.py",
+      "bytes": 1420,
+      "sha256": "7d176a5f6fe32e6f41d622fab2a7722735fbb1fc50faa9cf2e057a32d7628e84"
+    },
+    {
+      "path": "开发基地1/tools/build_registration_profile.py",
+      "bytes": 4312,
+      "sha256": "135708b2b860d03bf97edd5f000cb3d0527e6debdd95b84f46fd1b507b6dc96b"
+    },
+    {
+      "path": "开发基地1/tools/capture_media_session.py",
+      "bytes": 5726,
+      "sha256": "d1c246cfe10c16acd24530b2c3e3692d81c55c2031556b1aa3af215a265abe48"
+    },
+    {
+      "path": "开发基地1/tools/capture_messages.py",
+      "bytes": 1354,
+      "sha256": "e1ac49c4b45ae8c3669a5719a2142261d2b660c2421d70da6bb5fd216a69c9f3"
+    },
+    {
+      "path": "开发基地1/tools/capture_protocol.py",
+      "bytes": 2152,
+      "sha256": "af19bf6ec6f428eb670639387a1adc15366e0cee9fb5bc65c36ca5abc04399d4"
+    },
+    {
+      "path": "开发基地1/tools/check_capture.py",
+      "bytes": 1339,
+      "sha256": "9fe27096c7527b2c5254a14f2c778bd0769105fe2892bc90050885a2e2a7e07b"
+    },
+    {
+      "path": "开发基地1/tools/circle_console.py",
+      "bytes": 7074,
+      "sha256": "c98a2e7b4e34426bfec462f9351433cdd446734e7070a6b3eae3a739c09a6586"
+    },
+    {
+      "path": "开发基地1/tools/circle_protocol.py",
+      "bytes": 3354,
+      "sha256": "2346f45100c6a970d0ede20d3be339da9c97478239f25559b6d353b5745952cb"
+    },
+    {
+      "path": "开发基地1/tools/compare_control_readiness.py",
+      "bytes": 1683,
+      "sha256": "f6d3bfcbc888e5df144d8c3ad1ed466420646c843857769d17f5ae97fea17dfc"
+    },
+    {
+      "path": "开发基地1/tools/compare_handshakes.py",
+      "bytes": 1623,
+      "sha256": "d7e37c554f0c6fc53254b77d1f84b8ad83f0e226502c7a7307ecf5c6f90bc2f5"
+    },
+    {
+      "path": "开发基地1/tools/compare_identity_exchange.py",
+      "bytes": 1498,
+      "sha256": "35eeea6bbfa4be2c54ab6601dbf2be09d0f35edbed65e8f0d66f9ab1edfefb26"
+    },
+    {
+      "path": "开发基地1/tools/compare_landing_sticks.py",
+      "bytes": 1787,
+      "sha256": "3c40ffd498ff04faffb2d8fa10cc8f469d2ef6f2c38eedb061b1a71419cdbd95"
+    },
+    {
+      "path": "开发基地1/tools/compare_startup.py",
+      "bytes": 2404,
+      "sha256": "deee8a9bdb8cf51521f1fc98c9ae2c2640efadde811bf6803705e5750353fcaf"
+    },
+    {
+      "path": "开发基地1/tools/compare_stick_payloads.py",
+      "bytes": 1390,
+      "sha256": "590297796421d649e49e65ee9eefef4952261f8e14c00c655845ba95d41cf4a8"
+    },
+    {
+      "path": "开发基地1/tools/compare_takeoff_context.py",
+      "bytes": 2318,
+      "sha256": "5c0f671b9cf70f7fdc0c66fddfb8ec2badf8e249a19adfb7058c176a0248216f"
+    },
+    {
+      "path": "开发基地1/tools/compare_video_seed.py",
+      "bytes": 2431,
+      "sha256": "e98bfdfdf686e771fb3c85cda6fa05ef79e3b82693eb009fb8e88cc58d66e339"
+    },
+    {
+      "path": "开发基地1/tools/connection_flows.py",
+      "bytes": 982,
+      "sha256": "015537ea90a8a57a00eb9e6d1adb0824f74156b7ef7837cc0f1a92abfd2a012f"
+    },
+    {
+      "path": "开发基地1/tools/control_packets.py",
+      "bytes": 4435,
+      "sha256": "db0f940d23c9b3962d2526d30958ea0e813d8f43635c67a54cc9d5fc916c9aa0"
+    },
+    {
+      "path": "开发基地1/tools/decode_video_capture.py",
+      "bytes": 2118,
+      "sha256": "2017e4139e84ee12bcc9d87c8aa65ff8e1e39a5b1cfef63dc5094c56c9faeb05"
+    },
+    {
+      "path": "开发基地1/tools/diagnose_handshake.py",
+      "bytes": 2845,
+      "sha256": "3e7bbe3832bb43c1b83250279f3f9a8ff5a224a7734da2c6e735f671cabe88ed"
+    },
+    {
+      "path": "开发基地1/tools/diagnose_video_freeze.py",
+      "bytes": 3114,
+      "sha256": "c00ae1fc130baed5f7cf246615c3bade3125e7e053da32d001e29e4efb2b7931"
+    },
+    {
+      "path": "开发基地1/tools/extend_registration_profile.py",
+      "bytes": 3517,
+      "sha256": "62dcf4f2d23560a04e991c6075e8022594f24096c1c4de7812a971342771d208"
+    },
+    {
+      "path": "开发基地1/tools/extract_circle_evidence.py",
+      "bytes": 2393,
+      "sha256": "d44cf45426a1da640acaf6b1d8480ba50734dd6790644cfb7923a55b66d2bdff"
+    },
+    {
+      "path": "开发基地1/tools/extract_control_samples.py",
+      "bytes": 2208,
+      "sha256": "3544153bdc9005bffc2247f968390e316b05e86022ffca53029afacdae76ac27"
+    },
+    {
+      "path": "开发基地1/tools/find_control_query_pairs.py",
+      "bytes": 1849,
+      "sha256": "0e9781f8a3ae15dae7d2f7aef1c347d62548694610414d8d06fee6a4450864c3"
+    },
+    {
+      "path": "开发基地1/tools/first_exchange.py",
+      "bytes": 727,
+      "sha256": "179b3a71f390c980ee66e6609a66c1c04759141aecdceeb7197bf0956b01cf07"
+    },
+    {
+      "path": "开发基地1/tools/first_video_context.py",
+      "bytes": 2499,
+      "sha256": "3a7905affe18cda2b63cee6eae67d929216ed1bd8b27e63eb461ad13386124fe"
+    },
+    {
+      "path": "开发基地1/tools/flight_console.py",
+      "bytes": 51416,
+      "sha256": "8c648936bdc99afcce704277a0466d8e54157e2a84f584e2d94a93b8389c6be2"
+    },
+    {
+      "path": "开发基地1/tools/fly_command.py",
+      "bytes": 1327,
+      "sha256": "732fdb4cc85b3fae1ec95eadd90aa31d77aa1e8609f044074b70454b95352c84"
+    },
+    {
+      "path": "开发基地1/tools/ground_short_comparison.py",
+      "bytes": 7304,
+      "sha256": "204dcae44861c8f35e532020a7a3378e31220924606ddb132878c649cfc30cad"
+    },
+    {
+      "path": "开发基地1/tools/handshake_exchange_map.py",
+      "bytes": 2115,
+      "sha256": "14e7ea3736bac3f72c898b7d337d29c4b133dda841e45a14fed4527875581553"
+    },
+    {
+      "path": "开发基地1/tools/handshake_probe.py",
+      "bytes": 9064,
+      "sha256": "cdca5d90064ff00ec4d73ceaf5d3d32c342cce9e813d19b8b3ef0fa8dddf0189"
+    },
+    {
+      "path": "开发基地1/tools/index_mission_capture.py",
+      "bytes": 2448,
+      "sha256": "d0173dc4f534c9b519eb9ce77480bf42d81cb3241a99da862ac7ca303e42925c"
+    },
+    {
+      "path": "开发基地1/tools/initial_010a.py",
+      "bytes": 1069,
+      "sha256": "6e45dc7c440dd8d8aedc9ae3de5a3bd18f2659d3095641cb1f0be58b7467b86e"
+    },
+    {
+      "path": "开发基地1/tools/inspect_query_envelope.py",
+      "bytes": 2561,
+      "sha256": "2fdb0f417cd2dbeb99744dc93216a82e995d70320ed9d7341d968b52844e225f"
+    },
+    {
+      "path": "开发基地1/tools/inspect_registration_fields.py",
+      "bytes": 2885,
+      "sha256": "71edc5893e45ea363b128fbea28a0b719e7cd91f5117e306161806c7ee8ad454"
+    },
+    {
+      "path": "开发基地1/tools/inspect_registration_flags.py",
+      "bytes": 1257,
+      "sha256": "ea4261c2855e5db7a5aea350ebd9f4e61139b264b23402997453cc3c1d1e8693"
+    },
+    {
+      "path": "开发基地1/tools/inspect_session_frames.py",
+      "bytes": 1418,
+      "sha256": "68fdc1f00058243215cb9ce9a5cff656dc76d9455a5fb6e5f7a85fd7a9ae3189"
+    },
+    {
+      "path": "开发基地1/tools/inspect_startup_bundle.py",
+      "bytes": 1922,
+      "sha256": "364b8796c9475e88eb9adc2a7facf2dd3ac2a3de7384d644eb85ba5eaff7c116"
+    },
+    {
+      "path": "开发基地1/tools/inspect_stick_packet.py",
+      "bytes": 1369,
+      "sha256": "9a574e75c109a1b83c68714eb4b48e22f6ed19b497d45512a32ad15c7196c6dd"
+    },
+    {
+      "path": "开发基地1/tools/ios_capture.ps1",
+      "bytes": 1309,
+      "sha256": "c958e526a1b31c4f14b8d54dd6c6843d2a01688fdeeef1809fa0e155909e891b"
+    },
+    {
+      "path": "开发基地1/tools/ios_pcapng_to_pcap.py",
+      "bytes": 1784,
+      "sha256": "c9376d6f9660c7de297c3f32a8cb1a8d40f861def1c43ccf5454c15061433658"
+    },
+    {
+      "path": "开发基地1/tools/landing_status.py",
+      "bytes": 4181,
+      "sha256": "2acee647b94b80b8c9b621fb1f5f1232af50fe5fcc99d1c4c4845276eb6cea48"
+    },
+    {
+      "path": "开发基地1/tools/measure_idle.py",
+      "bytes": 885,
+      "sha256": "a61f2685a533b89ccdf26d8c48866068bfeb5a4f8be5624bf007e4446d222cca"
+    },
+    {
+      "path": "开发基地1/tools/media_console.py",
+      "bytes": 3271,
+      "sha256": "7ea0360a5be57e42b5af2d078366a111c8d137cfddc8bfe0c8b4f382ce33e3de"
+    },
+    {
+      "path": "开发基地1/tools/media_directory.py",
+      "bytes": 7613,
+      "sha256": "8397727be3c6a29e4da969d8122d09b183cbbe184e94390220a2713a22c80e92"
+    },
+    {
+      "path": "开发基地1/tools/media_directory_link.py",
+      "bytes": 3033,
+      "sha256": "7876c7c081834730b29df324d1f109322305d6554187c44468465ebb79c09787"
+    },
+    {
+      "path": "开发基地1/tools/MEDIA_TRANSFER.md",
+      "bytes": 3956,
+      "sha256": "2eea7d06f8732c70e769758f9d27e059b9e3fbba2184036af5793f6953fc50bd"
+    },
+    {
+      "path": "开发基地1/tools/media_transfer.py",
+      "bytes": 24699,
+      "sha256": "74518083e143cdb07453be42927c85d6c4d662fb1e231aebd1ff97cccd68608b"
+    },
+    {
+      "path": "开发基地1/tools/movement_commands.py",
+      "bytes": 1911,
+      "sha256": "5271b03b773d26fbd9e7472e841a1027ad581673d9e95695a33f048b9db54912"
+    },
+    {
+      "path": "开发基地1/tools/native_camera.py",
+      "bytes": 11699,
+      "sha256": "ef5331755fd04f7d2c69cbbaf596da50490c785ba51e791c6af407e4082622dd"
+    },
+    {
+      "path": "开发基地1/tools/native_circle.py",
+      "bytes": 7222,
+      "sha256": "7a0456e57e23c8db01c9e2afeca4f41dce2069870f106611b4baf4c8ca964765"
+    },
+    {
+      "path": "开发基地1/tools/neutral_stick.py",
+      "bytes": 2313,
+      "sha256": "aff6b92e2586231f36103ae4eaaed7054665953529014511744cc1f00682b10f"
+    },
+    {
+      "path": "开发基地1/tools/offline_speech.py",
+      "bytes": 3099,
+      "sha256": "fe459abc6b2fe66b48b43d9150128aced2facc7a0fbcd0fa92427f1b03de9649"
+    },
+    {
+      "path": "开发基地1/tools/offline_takeoff.py",
+      "bytes": 1518,
+      "sha256": "e5c4865854978d1696c1254a6b13d1798906eb7d33b98c4ba04284a8f8f48aa6"
+    },
+    {
+      "path": "开发基地1/tools/pre_handshake.py",
+      "bytes": 995,
+      "sha256": "87b2c1397a31e1d81a894b49e6306bbd2414bfad82660077f3be880e585de73e"
+    },
+    {
+      "path": "开发基地1/tools/registration_exchange.py",
+      "bytes": 5556,
+      "sha256": "9a84021b33ba7fda3ecd759cfb1a80e1b7dee9180a8ac73a11cde04bbf64af70"
+    },
+    {
+      "path": "开发基地1/tools/registration_schema.py",
+      "bytes": 1905,
+      "sha256": "ef0722a5b9da379de20e1bba60aee19231647e9a25c99691acf6574156d302ce"
+    },
+    {
+      "path": "开发基地1/tools/reliable_transport.py",
+      "bytes": 4788,
+      "sha256": "f4a806d3e0e5e97101fa64807ba0db91384236906b56b73b90230788171c0a1f"
+    },
+    {
+      "path": "开发基地1/tools/replay_capture.py",
+      "bytes": 2971,
+      "sha256": "8136e4a647498c1028d1196a6acb51b88a5f1d85c1d46e5769fd1d1a070e9cdd"
+    },
+    {
+      "path": "开发基地1/tools/routing_sequences.py",
+      "bytes": 5968,
+      "sha256": "9b194f6580b8ef54dce50f977c7e9a08d00a9e2a3760d1eafe4f042e2920c0a5"
+    },
+    {
+      "path": "开发基地1/tools/run_handshake_offline.ps1",
+      "bytes": 1132,
+      "sha256": "675e2999832d11d5e2387e71eafd8b7087574dcc396fed310d6be7b65780654f"
+    },
+    {
+      "path": "开发基地1/tools/run_handshake_offline.py",
+      "bytes": 1375,
+      "sha256": "3d7bbf065c206124e6861a7f4b4892e56f8ffb806973c6d27b9dadd427f6b23e"
+    },
+    {
+      "path": "开发基地1/tools/run_idle_link_offline.py",
+      "bytes": 1186,
+      "sha256": "03e7ef6a9284e4f46d7af112659c2004c91aec813b556d6f7afb8635598e0376"
+    },
+    {
+      "path": "开发基地1/tools/search_session_seed.py",
+      "bytes": 1548,
+      "sha256": "08135c50ba92449c03880b013b92b159face5442d050a7b3dc88ecfb237510b5"
+    },
+    {
+      "path": "开发基地1/tools/session_timeline.py",
+      "bytes": 1467,
+      "sha256": "35f2fe9c902c1ad703184e291aeb657b65e7d8cf99dd4bdbab16ab2a81ec7742"
+    },
+    {
+      "path": "开发基地1/tools/short_packets.py",
+      "bytes": 1063,
+      "sha256": "e3112ff8734bbcb7a25bbe7be009e0826027b38aa81dff791ebe535e8c770681"
+    },
+    {
+      "path": "开发基地1/tools/startup_boundary.py",
+      "bytes": 1748,
+      "sha256": "683d7092eab390ea984608a17999f5467651a393a67fbc0fb38f2dfc10a388e6"
+    },
+    {
+      "path": "开发基地1/tools/startup_query_pairs.py",
+      "bytes": 1852,
+      "sha256": "0b2ce4dd67150d1b4612325ff33c2282bb44701f6b9c8af5989f5e745918e5f1"
+    },
+    {
+      "path": "开发基地1/tools/stick_transition.py",
+      "bytes": 3396,
+      "sha256": "cc6c589c00537a892690441a581302e66312461e2472776fed9b9040a5ab98e2"
+    },
+    {
+      "path": "开发基地1/tools/subject_observation.py",
+      "bytes": 5166,
+      "sha256": "29b8333eca25ed5ad16e085eec3c12b471a4227e98a03f366e4ae36f58ac5a66"
+    },
+    {
+      "path": "开发基地1/tools/summarize_axis_windows.py",
+      "bytes": 1662,
+      "sha256": "18aa334d258f89b642482a4f87ade2821af8225f08373c6c36c0d1ed3e0ed648"
+    },
+    {
+      "path": "开发基地1/tools/summarize_labeled_controls.py",
+      "bytes": 3614,
+      "sha256": "bf3ff7885df0218031d758fec15f7fad7260fa9f6e233d19f9e71c4fef9f1abf"
+    },
+    {
+      "path": "开发基地1/tools/test_analyze_camera_media.py",
+      "bytes": 1444,
+      "sha256": "da388184d175b70396f1fb79a89139627beb7e5a65d59fdcda0815bc2973d3f8"
+    },
+    {
+      "path": "开发基地1/tools/test_capture_media_session.py",
+      "bytes": 3468,
+      "sha256": "a5fd4b40772479baae192e0671af6d41ebf354175c580b6ce5fa082d1c3d64f6"
+    },
+    {
+      "path": "开发基地1/tools/test_capture_protocol.py",
+      "bytes": 1626,
+      "sha256": "ecd719096e2933144aa7d2241d0c26dfb2645babde0b6b6941ef20cd32af29f0"
+    },
+    {
+      "path": "开发基地1/tools/test_circle_analysis.py",
+      "bytes": 5392,
+      "sha256": "2655cb9e7327536b341f4dbd2bb5236d89a68136e0cce5f74365619228defe9c"
+    },
+    {
+      "path": "开发基地1/tools/test_circle_console.py",
+      "bytes": 1547,
+      "sha256": "35ff69c70ed2b162d3572e78584d44a51edbf1e3882ac99884d90a43a47910cd"
+    },
+    {
+      "path": "开发基地1/tools/test_circle_protocol.py",
+      "bytes": 3698,
+      "sha256": "c7d925196466e0916fdfbfe847da57540d7fa5e326e776c23da1729bd1257a74"
+    },
+    {
+      "path": "开发基地1/tools/test_control_packets.py",
+      "bytes": 5612,
+      "sha256": "3417140bba6b2453c8d775f2a0d54d01b47e2fc2f84e630d2f9488f9e197c628"
+    },
+    {
+      "path": "开发基地1/tools/test_flight_console.py",
+      "bytes": 22664,
+      "sha256": "0b8076fe8328d1daba18021a5cd7f0c084730431ccdacde4d9e7bc70a3bbea09"
+    },
+    {
+      "path": "开发基地1/tools/test_flight_handoff.py",
+      "bytes": 5089,
+      "sha256": "da908e967c0471a8cd9cd716dd2acad5b67d2ada50db7abf0bd200811897275d"
+    },
+    {
+      "path": "开发基地1/tools/test_fly_command.py",
+      "bytes": 1049,
+      "sha256": "5056cc312989c45f8ecff239a95f8a7d34abe994a8e22c666647175f81331b7e"
+    },
+    {
+      "path": "开发基地1/tools/test_ground_short_comparison.py",
+      "bytes": 2636,
+      "sha256": "c1d558aa77283692d210086ac0c615187babdba27dd0dc5a2801782ea39a0c4e"
+    },
+    {
+      "path": "开发基地1/tools/test_handshake_probe.py",
+      "bytes": 5667,
+      "sha256": "9f2a351d6a44831eb6d2f3977ea57b3eb7c4f1fec5553abef377e071839ec66b"
+    },
+    {
+      "path": "开发基地1/tools/test_initial_010a.py",
+      "bytes": 701,
+      "sha256": "9070003886ef394fc27592162c1f0697dfd4eaa03d951c73b44396a51db9090f"
+    },
+    {
+      "path": "开发基地1/tools/test_landing_status.py",
+      "bytes": 3435,
+      "sha256": "a32968d8b2be583c4b4f478222a2b82c522933cf1206d9ad089b6e91d1332b4f"
+    },
+    {
+      "path": "开发基地1/tools/test_media_directory.py",
+      "bytes": 2820,
+      "sha256": "6dfe919b25cb2d98d75e975d2d310e7674d53838a1b10c1f197e04876210dcc1"
+    },
+    {
+      "path": "开发基地1/tools/test_media_directory_link.py",
+      "bytes": 3414,
+      "sha256": "1c3e83c0ffaed60ed75f50379fc372db17cc0ea8cff7c3d9ad31ec105a6e78c9"
+    },
+    {
+      "path": "开发基地1/tools/test_media_transfer.py",
+      "bytes": 16897,
+      "sha256": "a7717979d393416ba1deeeeb3ecba1946dc1a68fccb8d6eed9c7b0d7361482ed"
+    },
+    {
+      "path": "开发基地1/tools/test_movement_commands.py",
+      "bytes": 1207,
+      "sha256": "d5d80de6c8e8a7c59cfbedb8ab01a6b882905d7649fe7e3a04e09e8e0472c230"
+    },
+    {
+      "path": "开发基地1/tools/test_movement_control.py",
+      "bytes": 5926,
+      "sha256": "dbdc9b28f66464a2c0ee4cefc052e89dfdeb380f6855760a25b3c265985eec2a"
+    },
+    {
+      "path": "开发基地1/tools/test_native_camera.py",
+      "bytes": 12677,
+      "sha256": "f89987f1947a4382f98ec14b79ca2c0266c714642be2cf2d2b4ef3c2c0c3ca82"
+    },
+    {
+      "path": "开发基地1/tools/test_native_circle.py",
+      "bytes": 6650,
+      "sha256": "12736dd9ed24983744278ded2cf79e6c68926e1a1954d374c4f6693ce898ba6f"
+    },
+    {
+      "path": "开发基地1/tools/test_native_circle_wire.py",
+      "bytes": 10573,
+      "sha256": "c76efe5861e9d150a742223e16b28351674f86c376df481e1e26ab3f95b0de84"
+    },
+    {
+      "path": "开发基地1/tools/test_neutral_stick.py",
+      "bytes": 2066,
+      "sha256": "98d996dc9f6f7190ec3d64202f673832952da79bb74bc176c316a172642ad6d3"
+    },
+    {
+      "path": "开发基地1/tools/test_offline_takeoff.py",
+      "bytes": 849,
+      "sha256": "e5ee09811401ab2f6d0206183fa8b7788fabcef0d8d88e2b12d805cd9018ccc0"
+    },
+    {
+      "path": "开发基地1/tools/test_registration_exchange.py",
+      "bytes": 4981,
+      "sha256": "19c48991adca876996ef88ae234827b128619bde6886cff27e7046184222e9b2"
+    },
+    {
+      "path": "开发基地1/tools/test_registration_schema.py",
+      "bytes": 2570,
+      "sha256": "5b7985aa9d95a107586e174c3374f38448b40e65e1c15473aba85310e2e696dc"
+    },
+    {
+      "path": "开发基地1/tools/test_reliable_console.py",
+      "bytes": 12469,
+      "sha256": "9d2020a425f66f8a684e0d4d601ce3d0f78f8864a9f46a8c579a883b883f023b"
+    },
+    {
+      "path": "开发基地1/tools/test_reliable_transport.py",
+      "bytes": 2319,
+      "sha256": "a3e08a4f68f1d132801eeb8ddf9acec766bfadf001c7d5a8058679bad8d1ece0"
+    },
+    {
+      "path": "开发基地1/tools/test_routing_sequences.py",
+      "bytes": 3006,
+      "sha256": "4167c82f23c093df297a4244246c62bae34e704fb1bd9cd88ba67672c977488e"
+    },
+    {
+      "path": "开发基地1/tools/test_subject_analysis.py",
+      "bytes": 2268,
+      "sha256": "73fa76fad6bb8acb8c9734eced5669ffc2eeafb9d8d12288c59857b88b5e2f0f"
+    },
+    {
+      "path": "开发基地1/tools/test_subject_observation.py",
+      "bytes": 4081,
+      "sha256": "688d31730e85d3e58b6786a12fc71c9654a239edc514249773d501810f0a6996"
+    },
+    {
+      "path": "开发基地1/tools/test_video_stream.py",
+      "bytes": 12018,
+      "sha256": "9840ea9c6b1a70b5b97c919c45cb23ac7e86f5e194f7ba2547babf5891e89bb0"
+    },
+    {
+      "path": "开发基地1/tools/test_voice_camera.py",
+      "bytes": 4560,
+      "sha256": "a2326ecdc741551cf27fcdf29599f99f9a6c95063170b63503d07c5bbc144398"
+    },
+    {
+      "path": "开发基地1/tools/test_voice_circle.py",
+      "bytes": 7472,
+      "sha256": "b6468f56f4aa0b1c9ac273783b3e4cb8b863e0230e2f6a6b2a03b4957738706a"
+    },
+    {
+      "path": "开发基地1/tools/test_voice_commands.py",
+      "bytes": 3856,
+      "sha256": "cf180915b81f5c34fbee90ac885a677af72ea7c65aa645ddee84c2760cebd9f5"
+    },
+    {
+      "path": "开发基地1/tools/test_voice_control.py",
+      "bytes": 8860,
+      "sha256": "5eef9b426ca878a55f567d2cac17822426e9d1d130118e26d48fbfeecc981d90"
+    },
+    {
+      "path": "开发基地1/tools/transition_events.py",
+      "bytes": 5471,
+      "sha256": "1ebad6050e50d556e185482d31f3efef885a76da9dd12ea3a6a39981bee12d0d"
+    },
+    {
+      "path": "开发基地1/tools/transport_inventory.py",
+      "bytes": 1737,
+      "sha256": "4c0e065eebc6f0916d845ecf45b832479c09b0ef353a2fe218e5978ba2e2d9e4"
+    },
+    {
+      "path": "开发基地1/tools/verify_transport_windows.py",
+      "bytes": 1962,
+      "sha256": "2fb69f6c21819e186bb5212e1e12541f727d642667983802ef1f341f12713abd"
+    },
+    {
+      "path": "开发基地1/tools/VIDEO_PREVIEW.md",
+      "bytes": 5038,
+      "sha256": "1b14d24493dabe2c10913cd3cd697346ac04c731961508861946f9401ea7fa7d"
+    },
+    {
+      "path": "开发基地1/tools/video_stream.py",
+      "bytes": 18947,
+      "sha256": "cb7be095063f84a862dcf00184cb87c76f0f44aa8631d3cfc783430e9a433e52"
+    },
+    {
+      "path": "开发基地1/tools/voice_commands.py",
+      "bytes": 5011,
+      "sha256": "4bfb1c8520c8d050ca73c3b28907931e468c81896bbc5e5c7c97caa2e807df2e"
+    },
+    {
+      "path": "开发基地1/tools/voice_console.py",
+      "bytes": 9435,
+      "sha256": "d6c480846199bb9a927810d57356fbc7fe5fe50a4ef56ad56a5a6e6b6f3fcef4"
+    },
+    {
+      "path": "开发基地1/tools/voice_control.py",
+      "bytes": 16208,
+      "sha256": "8c647713d2aae6bfa74a3e0b9f172049a3b62d20bd4dee2223fb34e2bee0008e"
+    },
+    {
+      "path": "开发基地1/tools/voice_motion.py",
+      "bytes": 2866,
+      "sha256": "b50c6f8d7ce8f84cd2e1a131ab66b04658607ffcc3f67c7f8a7875c855c20987"
+    },
+    {
+      "path": "开发基地1/tools/windows_speech.ps1",
+      "bytes": 2189,
+      "sha256": "0f1053485a1167403f26f11b9db83eefb50351129838e069b836e30acb4b7d57"
+    },
+    {
+      "path": "开发基地1/主体与环绕启动状态分析.md",
+      "bytes": 3619,
+      "sha256": "5f0b259a0a36b2f4cbd4f67d18f3869d37b59f04d37750f078c8c49bd31e84c6"
+    },
+    {
+      "path": "开发基地1/会话分析.md",
+      "bytes": 38371,
+      "sha256": "2ed4b9f30ea3da03cf9e790ebfbff7222177e07f9e227b22cbacdecfa274e4a4"
+    },
+    {
+      "path": "开发基地1/工作总结与下一步计划-2026-10-28.md",
+      "bytes": 7512,
+      "sha256": "81cf8b4b33b577e3b69f5cfcdae19f4269aceed76b638be8596dc7326765b507"
+    },
+    {
+      "path": "开发基地1/拍照和视频下载排查-20261030.md",
+      "bytes": 3849,
+      "sha256": "3a17c00bb70537545df67d534b6e5620e2c65ce97804218fe5ba28f3379e2224"
+    },
+    {
+      "path": "开发基地1/拍照录像与原片传输逆向计划.md",
+      "bytes": 3289,
+      "sha256": "de6ecad2aba1ebcc32ada518356014c38d77c472f24a2d554feff53b40132aae"
+    },
+    {
+      "path": "开发基地1/拍照录像与原片传输逆向记录.md",
+      "bytes": 3409,
+      "sha256": "45f7a4c67c80cda246471ce1405d7ade00a450f215bd9a9604edeee49f57623b"
+    },
+    {
+      "path": "开发基地1/拍照录像和原片下载使用说明.md",
+      "bytes": 3443,
+      "sha256": "6af7d62ae53b2c74f41756a9f78c06c69d233a8e1a2f1efa65a217ee819c8de7"
+    },
+    {
+      "path": "开发基地1/最近两次相机故障分析-20261030.md",
+      "bytes": 4091,
+      "sha256": "aadab621a4f3323cafc62ad76499560497781b910efb3fd6e3db2af6e119c2a6"
+    },
+    {
+      "path": "开发基地1/环绕协议逆向记录.md",
+      "bytes": 7685,
+      "sha256": "9cf6c9e916d19ca81588b672b0d0d5f0d8b2d97c53a9af2ae482f8c23e2cec4f"
+    },
+    {
+      "path": "开发基地1/环绕衔接与视频修复记录.md",
+      "bytes": 3660,
+      "sha256": "986ec90a73d97da347fb1a2c54e627a2add7adcf1f983928869681b16e81d54e"
+    },
+    {
+      "path": "开发基地1/电脑原生环绕使用说明.md",
+      "bytes": 3972,
+      "sha256": "b10bb600eadcf0aa2003237425df2faae1db122d97ce4abcb1d6eb46b5a1b32c"
+    },
+    {
+      "path": "开发基地1/语音控制使用说明.md",
+      "bytes": 9099,
+      "sha256": "18998e6c9209ce5e72670a2375b1096d1cc47ccef8208f5664847fa8bee2c6fa"
+    },
+    {
+      "path": "开发基地1/降落悬停故障分析.md",
+      "bytes": 2589,
+      "sha256": "1873b79759d3313dbfcf58f1553660501fe28a73089f529a4bba6d94dea39912"
+    },
+    {
+      "path": "开发基地1/飞行控制指令现状.md",
+      "bytes": 3147,
+      "sha256": "f6f654c7c4df5a5dbdf6c5aeda0ca93ff4a59fa059900009e159d97b8e1220ab"
+    },
+    {
+      "path": "核心代码/control/SelfTest.ets",
+      "bytes": 7965,
+      "sha256": "3f7982c68644bfb4a5e95bdafa4565e31e45e514559562e50a80a8918f4fc7c5"
+    },
+    {
+      "path": "核心代码/control/Ticker.ets",
+      "bytes": 2758,
+      "sha256": "199795800f16fbadf3367a46e8f2d8fd067b63c093011a88d4364d8f36c98011"
+    },
+    {
+      "path": "核心代码/protocol/Commands.ets",
+      "bytes": 2443,
+      "sha256": "aa1fc6c82b3366899f2eff3565c717eaa6bb12e808dfe700f53076b852edf998"
+    },
+    {
+      "path": "核心代码/protocol/Duml.ets",
+      "bytes": 7018,
+      "sha256": "9d75df0565e6afd52fbb33ca4442cad8758e797bcbfbced7c80668eac1ec68c3"
+    },
+    {
+      "path": "核心代码/protocol/Framing.ets",
+      "bytes": 3744,
+      "sha256": "c4aefdeffd86dee3871aebec13dda7a04bdfd8dfe5887301565a7aaeb55b8abf"
+    },
+    {
+      "path": "核心代码/protocol/Inspector.ets",
+      "bytes": 10303,
+      "sha256": "27ab8405c3f0d6a2cc39f5383e2318b4272392436c8c88ecd42925616169f47b"
+    },
+    {
+      "path": "核心代码/protocol/Stick.ets",
+      "bytes": 5192,
+      "sha256": "46abf0f3c7e57400ad70b050537dc5613717bb047295f8db593eca43aa31cc8c"
+    },
+    {
+      "path": "核心代码/protocol/Vectors.ets",
+      "bytes": 4703,
+      "sha256": "74553ee7948e0db7eefedfd77d177f5cd3e64fdd6af2cc5d1eb50d7b43ebd41b"
+    },
+    {
+      "path": "核心代码/README.md",
+      "bytes": 632,
+      "sha256": "befc45913485fa1b7a578e193c388ded05ad357fd60ee44051989dd20029efe7"
+    },
+    {
+      "path": "核心代码/transport/Permissions.ets",
+      "bytes": 3010,
+      "sha256": "97b7301744f7f1f5e0bd42000ca34bba910a42f2d70fb589a2806877408b3612"
+    },
+    {
+      "path": "核心代码/transport/Prober.ets",
+      "bytes": 5646,
+      "sha256": "fbb46bfa171a0448ae8733342cd6ae3ce3d555206b48993615e4dbbdeca0ab5f"
+    },
+    {
+      "path": "核心代码/transport/UdpDatalink.ets",
+      "bytes": 4534,
+      "sha256": "7882f1b9cb9d8a56195c42a70b1d572e40e748d139846f1036c74b77215af609"
+    },
+    {
+      "path": "核心代码/transport/WifiLink.ets",
+      "bytes": 5753,
+      "sha256": "b7c9651ea214a03da07f810dd040c2bb574960b98f96a27ec76cccb5f3927b3b"
+    }
+  ]
+}

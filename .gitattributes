@@ -1,0 +1,2 @@
+# Preserve snapshot bytes so SOURCE_MANIFEST hashes survive clone/checkout.
+* -text

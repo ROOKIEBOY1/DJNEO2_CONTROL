@@ -1,0 +1,20 @@
+Snapshot validation: 2026-11-02 (Asia/Hong_Kong)
+
+Command:
+  python run_tests.py
+
+Environment:
+  Windows, existing Python 3.12 research environment
+  av 19.0.2, Pillow 13.0.0, python-pcapng 2.1.1, pymobiledevice3 11.45.0
+
+Observed result:
+  Ran 258 tests in 17.590s
+  OK (skipped=14)
+  244 passed; 14 skipped because private original captures are not distributed.
+
+Tests use local simulations and temporary files, not aircraft flight commands.
+No fresh aircraft test, HarmonyOS build, clean-environment dependency install,
+or real phone dual-network validation was performed for this source snapshot.
+
+SOURCE_MANIFEST.json contains hashes of the 211 original copied source files.
+Root handoff/readme/dependency/test-runner files were added for this export.
