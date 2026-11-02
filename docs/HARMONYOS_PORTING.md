@@ -41,6 +41,9 @@ flowchart TD
 | `circle_protocol.py`、`native_circle.py` | `NativeCircleTask` | 模式/参数回显和读回、显式确认、停止与取消 |
 | `video_packets.py` | `VideoAssembler` | 完整分片、有界积压，交由手机解码器处理 |
 | `flight_controller.py` | `DroneSession` | 集成、并发、动作权限、断链处理和生命周期 |
+| `native_camera.py`、`media_directory*.py`、`media_transfer.py` | `CameraTask` / `MediaRepository` | 相机前置参数、目录流重组、HTTP 原片校验 |
+
+电脑视频、离线语音及相机/媒体的完整补充说明见 [VIDEO_VOICE_CAMERA.md](VIDEO_VOICE_CAMERA.md)。其中 Windows 识别、PyAV/Pillow 和本机网页都需要平台替换，不是可直接编译的鸿蒙实现。
 
 模块名是建议，不要求逐文件机械翻译。协议和状态判断先保持等价，平台接口再单独适配。
 

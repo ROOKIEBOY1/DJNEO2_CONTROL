@@ -1,6 +1,6 @@
 {
   "base_commit": "cf8ccf7",
-  "description": "Extracted control reference. Removed UI/CLI, voice, camera and media modules; renamed imports.",
+  "description": "Protocol core plus optional video/voice and integrated camera/media restored from cf8ccf7. Imports adapted to current layout.",
   "modules": {
     "core/outer.py": "开发基地1/tools/capture_protocol.py",
     "core/messages.py": "开发基地1/tools/capture_messages.py",
@@ -20,13 +20,26 @@
     "core/circle_protocol.py": "开发基地1/tools/circle_protocol.py",
     "core/native_circle.py": "开发基地1/tools/native_circle.py",
     "core/flight_controller.py": "开发基地1/tools/flight_console.py",
-    "core/video_packets.py": "开发基地1/tools/video_stream.py:VideoAssembler"
+    "core/video_packets.py": "开发基地1/tools/video_stream.py:VideoAssembler",
+    "core/native_camera.py": "开发基地1/tools/native_camera.py",
+    "core/media_directory.py": "开发基地1/tools/media_directory.py",
+    "core/media_directory_link.py": "开发基地1/tools/media_directory_link.py",
+    "core/media_transfer.py": "开发基地1/tools/media_transfer.py",
+    "core/network.py": "开发基地1/tools/run_handshake_offline.py:detect_local_ip",
+    "extras/voice_console.py": "开发基地1/tools/voice_console.py",
+    "extras/voice_control.py": "开发基地1/tools/voice_control.py",
+    "extras/voice_commands.py": "开发基地1/tools/voice_commands.py",
+    "extras/voice_motion.py": "开发基地1/tools/voice_motion.py",
+    "extras/offline_speech.py": "开发基地1/tools/offline_speech.py",
+    "extras/video_stream.py": "开发基地1/tools/video_stream.py",
+    "extras/decode_video_capture.py": "开发基地1/tools/decode_video_capture.py",
+    "extras/windows_speech.ps1": "开发基地1/tools/windows_speech.ps1",
+    "extras/capture_io.py": "开发基地1/tools/capture_messages.py:udp_records"
   },
   "excluded": [
-    "Desktop CLI/UI",
-    "offline speech and voice dispatch",
-    "camera and media transfer",
     "old HarmonyOS application shell",
-    "raw capture analysis and private-fixture regression tests"
+    "raw captures, photos and videos",
+    "runtime state and secrets",
+    "private-fixture replay tests and standalone historical capture-analysis scripts"
   ]
 }

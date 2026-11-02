@@ -1,6 +1,6 @@
 # DJNEO2_CONTROL — 飞机通信与控制核心
 
-这是面向 **HarmonyOS 手机迁移** 的最小协议参考工程。保留 Python 中已实现的连接、注册、可靠传输、起降、八方向、原生环绕、状态观察和视频分片组装；去掉电脑界面、语音、相机控制、媒体下载、抓包分析脚本和旧鸿蒙应用壳。
+这是面向 **HarmonyOS 手机迁移** 的协议与能力参考工程。保留连接、注册、可靠传输、起降、八方向、原生环绕、状态观察和视频分片组装；另提供视频解码/预览、离线语音、相机控制与原片下载。不包含旧鸿蒙应用壳、原始抓包和媒体文件。
 
 **本仓库不是可以直接安装的鸿蒙 App。** 接手者应在目标 SDK 下新建工程，按文档移植协议和状态机，并替换网络、并发、计时和持久化实现。
 
@@ -10,14 +10,17 @@
 2. [协议说明](docs/PROTOCOL.md)：外层包、DUML、注册、序号、八方向和环绕。
 3. [状态机与接口](docs/STATE_AND_API.md)：初始化、取消、降落、重飞及环绕接续。
 4. [验证与已知边界](docs/VALIDATION.md)：哪些已实飞、哪些只经自动测试。
+5. [视频、语音与相机迁移](docs/VIDEO_VOICE_CAMERA.md)：新增三项能力的运行方法、协议和手机替换点。
 
 ## 仓库结构
 
 ```text
-core/             19 个核心模块；仅依赖 Python 标准库
+core/             通信飞控 + 相机/媒体协议；照片校验需 Pillow
+extras/           电脑视频解码/预览、离线语音和演示入口
 profiles/         本研究设备的注册模板、环绕报文证据
 samples/          跨语言比对用的十六进制测试向量
 tests/            无需原始抓包的单元及本机 UDP 模拟测试
+tests_optional/   视频、语音、相机和媒体下载回归测试
 docs/             协议、状态机和鸿蒙迁移说明
 run_tests.py      离线测试入口，不连接飞机
 SOURCE_MAP.json   精简模块与原完整版本文件的对应关系
@@ -31,7 +34,17 @@ SOURCE_MAP.json   精简模块与原完整版本文件的对应关系
 python -S run_tests.py
 ```
 
-`-S` 禁用 site-packages，以验证核心没有隐藏的第三方依赖。测试使用临时目录及本机回环 UDP，不发送真机指令。
+`-S` 禁用 site-packages，以验证通信飞控和基础测试不依赖第三方包。照片完整校验和电脑视频解码使用下述可选依赖。测试使用临时目录及本机回环 UDP，不发送真机指令。
+
+要使用完整功能或测试扩展：
+
+```powershell
+python -m pip install -r requirements-extras.txt
+python run_tests.py --extras
+python extras/voice_console.py --help
+```
+
+Windows 离线语音需要已安装中文识别引擎和麦克风。仅预览识别可运行 `python extras/voice_console.py --listen`；连接飞机及图传使用 `--connect --video`，但必须先按迁移说明转交最新路由状态文件。连接后键盘输入“启用语音”才开放语音动作。相机口令包括“拍照、开始录像、停止录像、相册、下载最新照片、下载最新录像”。
 
 首次读代码从 `core/flight_controller.py` 开始；编码移植从 `duml.py`、`outer.py`、`handshake.py` 开始。测试中保留少量旧文件名以追溯原用例，导入已改为精简版模块。
 

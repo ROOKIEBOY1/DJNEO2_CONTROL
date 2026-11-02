@@ -7,6 +7,10 @@ captures/
 *.pcapng
 *.etl
 *.log
+*.mp4
+*.jpg
+*.jpeg
+*.part
 .env
 .env.*
 *.pem

@@ -1,6 +1,4 @@
-"""Neo 2 control-session reference for platform migration.
-No CLI, voice recognition, camera control or media-download layer.
-"""
+"""Neo 2 control session with camera and media hooks; no CLI or UI."""
 
 import datetime
 import json
@@ -28,6 +26,7 @@ from movement_commands import MOVEMENTS, validate_duration
 from routing_sequences import resequence_tunnels
 from landing_status import LandingStatus
 from subject_observation import SubjectObservation
+from native_camera import CameraObservation, validate_camera_request, PHOTO_CONTEXT_PAYLOAD
 
 
 class _AnyCancellation:
@@ -51,6 +50,11 @@ class FlightController:
         self.session = session
         self.landing_status = LandingStatus()
         self.subject_observation = SubjectObservation()
+        self.camera_observation = CameraObservation()
+        self._media_directory_lock=threading.Lock()
+        self._media_directory_receiver=None
+        self._media_directory_session=secrets.randbelow(65535)
+        self.media_directory_entries=[]
         self.video_seed = video_seed
         self.video_word = video_seed
         self.video_ack = video_seed
@@ -100,6 +104,8 @@ class FlightController:
         self.events = deque(maxlen=2000)
         self.control_events = deque(maxlen=10000)
         self.control_received = 0
+        self.media_data_events=deque(maxlen=2048)
+        self.media_data_received=0
         self.commands = []
         self._lock = threading.Lock()
         self._pending = {}
@@ -312,6 +318,11 @@ class FlightController:
                     self.registration.observe(frame)
             self.received += 1
             self.last_receive_at = time.monotonic()
+            if outer.channel==3:
+                with self._lock:
+                    directory=self._media_directory_receiver
+                if directory is not None:
+                    directory.feed(raw)
             # Submission only queues raw bytes. Assembly/decoding never runs on
             # this control reader or while holding the flight-state lock.
             if outer.channel == 2 and self.video_receiver is not None:
@@ -331,12 +342,16 @@ class FlightController:
                 event = {'time': time.time(), 'channel': outer.channel,
                          'hex': raw.hex()}
                 self.events.append(event)
+                if outer.channel==3:
+                    self.media_data_received+=1
+                    self.media_data_events.append(event)
                 if outer.channel == 1:
                     self.control_received += 1
                     self.control_events.append(event)
                     for frame, _ in duml_messages(raw):
                         self.landing_status.observe(frame, event['time'])
                         self.subject_observation.observe(frame, event['time'])
+                        self.camera_observation.observe(frame, event['time'])
                 pending = list(self._pending.items())
             for sequence, slot in pending:
                 payload = find_command_reply(raw, self.session, sequence,
@@ -407,6 +422,67 @@ class FlightController:
         return self._request_tunneled(receiver,command_set,command_id,payload,timeout,cancel_event,
                                       label='native_circle')
 
+    def request_camera(self, command_id, payload, timeout=2., cancel_event=None):
+        validate_camera_request(command_id,payload)
+        if (not self.device_verified or self._stop.is_set()
+                or time.monotonic()-self.last_receive_at>1):
+            raise RuntimeError('相机控制需要已核验且新鲜的连接')
+        return self._request_tunneled(1,2,command_id,payload,timeout,cancel_event,label='native_camera')
+
+    def select_photo_context(self,timeout=2.,*,cancel_event=None):
+        """Observed 0x17 parameter write preceding both successful Fly photo captures."""
+        if (self.transport is None or not self.device_verified or self._stop.is_set()
+                or time.monotonic()-self.last_receive_at>1):
+            raise RuntimeError('拍照前置设置需要已核验且新鲜的可靠连接')
+        with self._lock:
+            flight=self._fresh_flight_locked()
+            task=self.subject_observation.snapshot().get('task')
+            grounded=bool(flight and flight.get('motors_on') is False and flight.get('airborne_flag') is False)
+            native_ready=self._native_manual_ready_locked() if self.native_task_may_fly else False
+            manual_hover=bool(flight and flight.get('motors_on') and flight.get('airborne_flag')
+                              and flight.get('mode_raw')==6 and (native_ready or task and task.get('mode_raw')==9))
+            if task and task.get('phase_raw') not in (None,0) and task.get('mode_raw') not in (0,9):
+                raise RuntimeError('当前原生任务仍在执行，未切换拍照前置设置')
+            if not grounded and (not manual_hover or self.native_task_may_fly and not native_ready):
+                raise RuntimeError('拍照前置设置需先确认地面或手动悬停；原生任务中请先停止任务')
+        return self._request_tunneled(0x17,3,0xf9,PHOTO_CONTEXT_PAYLOAD,timeout,cancel_event,label='camera_context')
+
+    def list_media(self,timeout=6.,*,cancel_event=None):
+        from media_directory import make_directory_request
+        from media_directory_link import DirectoryStream
+        if (not 0<timeout<=10 or self.transport is None or not self.device_verified
+                or self._stop.is_set() or time.monotonic()-self.last_receive_at>1):
+            raise RuntimeError('读取相册需要已核验且新鲜的可靠连接')
+        if cancel_event is not None and cancel_event.is_set():raise RuntimeError('相册操作已取消')
+        if not self._media_directory_lock.acquire(blocking=False):raise RuntimeError('已有相册读取正在进行')
+        receiver=None
+        try:
+            self._media_directory_session=self._media_directory_session%65535+1
+            file_session=self._media_directory_session
+            with self._tx_lock:
+                receiver=DirectoryStream(outer_session=self.session,file_session=file_session,
+                    first_sequence=(self.transport.downlink_cursor+8)&0xffff)
+                with self._lock:
+                    self._media_directory_receiver=receiver
+            deadline=time.monotonic()+timeout
+            reply=self._request_tunneled(1,0,0x26,make_directory_request(file_session),
+                min(2.,timeout),cancel_event,label='media_directory')
+            if reply not in (None,b'\x00'):raise RuntimeError('相册读取被拒绝：'+reply.hex())
+            while True:
+                if cancel_event is not None and cancel_event.is_set():raise RuntimeError('相册操作已取消')
+                if self._stop.is_set():raise RuntimeError('连接已停止，相册未完成')
+                if receiver.done.is_set():break
+                remaining=deadline-time.monotonic()
+                if remaining<=0:raise TimeoutError('相册数据未完整收到；未使用旧列表')
+                receiver.done.wait(min(.05,remaining))
+            if receiver.error:raise RuntimeError('相册解析失败：'+receiver.error)
+            with self._lock:
+                self.media_directory_entries=list(receiver.entries)
+            return list(receiver.entries)
+        finally:
+            with self._lock:
+                if self._media_directory_receiver is receiver:self._media_directory_receiver=None
+            self._media_directory_lock.release()
 
     def _request_tunneled(self,receiver,command_set,command_id,payload,timeout,cancel_event,*,label):
         if self.transport is None or not 0<timeout<=3:
@@ -689,6 +765,7 @@ class FlightController:
     def status(self):
         with self._lock:
             subject_status = self.subject_observation.snapshot()
+            camera_status = self.camera_observation.snapshot()
             native_manual_ready = self._native_manual_ready_locked() if self.native_task_may_fly else False
         return {'session': f'0x{self.session:04x}',
                 'transport_mode': 'reliable' if self.transport is not None else 'legacy',
@@ -718,6 +795,8 @@ class FlightController:
                 'land_sent': self.land_sent, 'land_acknowledged': self.land_acknowledged,
                 'landing_observation': self.landing_status.snapshot(),
                 'subject_observation': subject_status,
+                'camera': camera_status,
+                'media_directory_count': len(self.media_directory_entries),
                 'auto_land_sent': self.auto_land_sent,
                 'error': self.last_error}
 
@@ -737,6 +816,10 @@ class FlightController:
                           self.control_received > len(self.control_events),
                       'flight_status_history': list(self.landing_status.history),
                       'subject_observation_history': list(self.subject_observation.history)}
+            record['camera_state_history'] = list(self.camera_observation.history)
+            record['media_directory_entries'] = list(self.media_directory_entries)
+            record['incoming_media_data']=list(self.media_data_events)
+            record['incoming_media_data_truncated']=self.media_data_received>len(self.media_data_events)
         output.write_text(json.dumps(record, ensure_ascii=False, indent=2), encoding='utf-8')
         return output
 
@@ -759,5 +842,7 @@ class FlightController:
         self._ticker.join(timeout=1)
         self._reader.join(timeout=1)
         self.sock.close()
+
+
 
 

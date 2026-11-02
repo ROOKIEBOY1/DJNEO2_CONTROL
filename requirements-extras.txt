@@ -1,0 +1,5 @@
+# Installed/tested versions in the original Python 3.12 research environment.
+av==19.0.2
+Pillow==13.0.0
+# Only needed for optional offline pcapng replay, not live control.
+python-pcapng==2.1.1

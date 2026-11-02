@@ -87,11 +87,63 @@ class NativeCircleWireTests(unittest.TestCase):
         self.assertEqual(self.controller._pending, {})
         self.assertFalse(self.controller.native_task_may_fly)
 
+    def test_camera_requests_use_camera_receiver_and_do_not_change_flight_flags(self):
+        self.controller.device_verified = True
+        for command,payload in ((0xff,bytes.fromhex('003700010100')),(1,b'\x01'),
+                                (0xff,bytes.fromhex('003700020000')),(2,b'\x01'),(2,b'\x00')):
+            self.assertEqual(self.controller.request_camera(command,payload,timeout=.5),b'\x00')
+        self.assertTrue(all(frame[5] == 1 and frame[9] == 2 for frame in self.requests))
+        self.assertFalse(self.controller.native_task_may_fly)
+        self.assertFalse(self.controller.takeoff_sent)
+        self.assertEqual(self.controller.commands[-1]['command'],'native_camera')
+        with self.assertRaises(ValueError):self.controller.request_camera(2,b'\x02')
 
+    def test_photo_context_uses_capture_observed_parameter_echo_without_starting_flight(self):
+        from test_landing_status import osd
+        from native_camera import PHOTO_CONTEXT_PAYLOAD
+        self.controller.device_verified=True
+        with self.controller._lock:self.controller.landing_status.observe(osd(flags=0))
+        reply=self.controller.select_photo_context(timeout=.5)
+        self.assertEqual(reply,b'\x00'+PHOTO_CONTEXT_PAYLOAD)
+        self.assertEqual((self.requests[-1][5],self.requests[-1][9:11]),(0x17,b'\x03\xf9'))
+        self.assertFalse(self.controller.native_task_may_fly)
+        self.assertFalse(self.controller.takeoff_sent)
 
+    def test_photo_context_cannot_replace_an_active_native_circle(self):
+        from test_landing_status import osd
+        self.controller.device_verified=True
+        self.controller.native_task_may_fly=True
+        with self.controller._lock:self.controller.landing_status.observe(osd(mode=37,flags=12))
+        with self.assertRaises(RuntimeError):self.controller.select_photo_context(timeout=.1)
+        self.assertEqual(self.requests,[])
 
+    def test_photo_context_accepts_verified_manual_hover_after_circle_stop(self):
+        import time
+        from test_landing_status import osd
+        self.controller.device_verified=True
+        self.controller.native_task_may_fly=True
+        self.controller.native_started_at=time.time()-2
+        self.controller.native_stop_confirmed_at=time.time()-1
+        with self.controller._lock:
+            self.controller.landing_status.observe(osd(mode=6,flags=0x1c))
+            self.controller.subject_observation.observe(encode_frame(0x92,2,1,0,0x23,0x14,bytes.fromhex('0000000101')))
+        self.assertEqual(self.controller.select_photo_context(timeout=.5)[0],0)
+        self.assertTrue(self.controller.native_task_may_fly)
 
+    def test_media_directory_receives_the_separate_reliable_data_channel(self):
+        self.controller.device_verified=True
+        self.assertEqual(self.controller.list_media(timeout=.5),[])
+        self.assertEqual(self.controller.list_media(timeout=.5),[])
+        self.assertEqual(self.requests[-1][9:11],b'\x00\x26')
+        self.assertNotEqual(self.requests[-1][15:17],self.requests[-2][15:17])
+        self.assertFalse(self.controller.native_task_may_fly)
+        self.assertFalse(self.controller.takeoff_sent)
 
+    def test_cancelled_directory_request_sends_nothing(self):
+        self.controller.device_verified=True
+        cancelled=threading.Event();cancelled.set()
+        with self.assertRaises(RuntimeError):self.controller.list_media(timeout=.1,cancel_event=cancelled)
+        self.assertEqual(self.requests,[])
 
     def test_native_flight_does_not_reuse_a_previous_takeoff_ack_for_manual_movement(self):
         self.controller.takeoff_acknowledged = True
