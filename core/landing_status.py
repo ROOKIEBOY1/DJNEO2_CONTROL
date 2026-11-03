@@ -24,6 +24,7 @@ class LandingStatus:
         self.latest = None
         self._seen_descending = False
         self._hover_since = None
+        self._descent_since=None
         self.history = deque(maxlen=4096)
         self._last_saved = None
 
@@ -32,6 +33,7 @@ class LandingStatus:
         self.phase = 'requested'
         self._seen_descending = False
         self._hover_since = None
+        self._descent_since=None
         self.history.append({'at': self.requested_at, 'event': 'landing_requested'})
 
     def new_flight(self):
@@ -39,6 +41,7 @@ class LandingStatus:
         self.phase = 'idle'
         self._seen_descending = False
         self._hover_since = None
+        self._descent_since=None
         self.history.append({'at': time.time(), 'event': 'new_flight_requested'})
 
     def observe(self, frame, at=None):
@@ -48,17 +51,22 @@ class LandingStatus:
         at = time.time() if at is None else at
         payload = frame[11:-2]
         flags = int.from_bytes(payload[32:36], 'little')
+        if (self.latest is None or not 0<=at-self.latest['at']<=1):
+            self._descent_since=None
         self.latest = {'at': at, 'mode_raw': payload[30] & 0x7f,
                        'last_command_raw': payload[31], 'flags_raw': flags,
+                       'landing_reason_raw':payload[37],
                        'motors_on': bool(flags & 8), 'airborne_flag': bool(flags & 4),
                        'relative_height_candidate_m': int.from_bytes(payload[16:18], 'little', signed=True)/10}
         if self.requested_at is not None and at >= self.requested_at:
+            if self.latest['mode_raw']!=12 or flags&12!=12:self._descent_since=None
             if self.phase == 'motors_off' and flags & 12:
                 self.phase = 'requested'
             if not flags & 12:
                 self.phase = 'motors_off'
                 self._hover_since = None
             elif self.latest['mode_raw'] == 12:
+                if flags&12==12 and self._descent_since is None:self._descent_since=at
                 self._seen_descending = True
                 self._hover_since = None
                 self.phase = 'descending'
@@ -85,4 +93,5 @@ class LandingStatus:
             elif phase == 'requested':
                 phase = 'not_observed'
         return dict(result, phase=phase, requested_at=self.requested_at,
+                    descending_duration_s=(max(0,now-self._descent_since) if self._descent_since is not None else 0),
                     telemetry_age_s=None if age is None else round(age, 2))

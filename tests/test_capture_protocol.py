@@ -30,3 +30,5 @@ class CaptureProtocolTests(unittest.TestCase):
         self.assertEqual(summary['short_reply_delay_ms'], 59.3)
 
 
+if __name__ == '__main__':
+    unittest.main()

@@ -18,6 +18,21 @@ def packet(sequence,data,outer_session=1):
 
 
 class DirectoryStreamTests(unittest.TestCase):
+    @unittest.skip("Private capture fixture excluded from this code-only export")
+    def test_real_seven_packet_response_reorders_to_latest_originals(self):
+        from messages import udp_records
+        path=Path(__file__).resolve().parents[1]/'captures/camera-media-20261030-141959.pcapng'
+        packets=[raw for at,side,raw in udp_records(path)
+                 if side=='plane' and raw[6]==3 and 1793341283.5<at<1793341283.6]
+        self.assertEqual(len(packets),7)
+        receiver=DirectoryStream(outer_session=int.from_bytes(packets[0][2:4],'little'),
+            file_session=2,first_sequence=int.from_bytes(packets[0][4:6],'little'))
+        for raw in packets[::-1]:receiver.feed(raw)
+        self.assertIsNone(receiver.error)
+        self.assertTrue(receiver.done.is_set())
+        self.assertEqual(len(receiver.entries),34)
+        self.assertEqual(receiver.entries[0]['size'],5636096)
+        self.assertEqual(receiver.entries[1]['size'],61317634)
     def test_out_of_order_and_duplicates_are_reassembled_before_parsing(self):
         receiver=DirectoryStream(outer_session=1,file_session=2,first_sequence=8)
         data=frame()

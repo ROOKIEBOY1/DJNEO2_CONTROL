@@ -37,6 +37,8 @@ class FlightConsoleTests(unittest.TestCase):
                 raise RuntimeError('decoder unavailable')
             def status(self):
                 return {'test': True}
+            def set_subject_provider(self,provider):
+                self.subject_provider=provider
         sink = Sink()
         server, captured, stop, thread = self.run_server(False, send_video=True)
         controller = None
@@ -51,6 +53,7 @@ class FlightConsoleTests(unittest.TestCase):
             self.assertEqual(controller.video_receiver_error, 'decoder unavailable')
             self.assertFalse(controller._stop.is_set())
             self.assertTrue(controller._reader.is_alive())
+            self.assertFalse(sink.subject_provider()['lock_verified'])
         finally:
             if controller:
                 controller.close()
@@ -460,3 +463,5 @@ class FlightConsoleTests(unittest.TestCase):
             server.close()
 
 
+if __name__ == '__main__':
+    unittest.main()

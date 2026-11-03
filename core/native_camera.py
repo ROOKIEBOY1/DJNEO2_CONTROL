@@ -146,6 +146,32 @@ class NativeCamera:
         if age is None or not 0<=age<=1 or state.get('recording_candidate') is not False:
             raise RuntimeError('相机状态缺失或过期，尚不能确认未在录像；请等待状态更新')
 
+    def prepare_video_mode(self,*,cancel_event=None,timeout=2.):
+        """Select verified video mode without issuing record-start or shutter."""
+        if not 0<timeout<=3:raise ValueError('录像模式状态等待时间需大于0且不超过3秒')
+        token=self._begin(cancel_event)
+        try:
+            self._check(token)
+            state=self._ensure()
+            self._require_idle(state)
+            if state.get('time_synced') is not True:
+                self._synchronize_clock(token)
+                self._require_idle(self._ensure())
+            self._check(token)
+            sent_at=time.time()
+            reply=self.link.request_camera(0xff,VIDEO_MODE,cancel_event=token)
+            if reply!=b'\0':raise RuntimeError('录像模式设置未成功，未启动原生任务')
+            deadline=time.monotonic()+timeout
+            while True:
+                self._check(token)
+                state=self._ensure()
+                self._require_idle(state)
+                if (state.get('at',0)>=sent_at and state.get('mode_raw')==1
+                        and state.get('time_synced') is True):return
+                if time.monotonic()>=deadline:raise RuntimeError('未收到新的录像模式状态，未启动任务')
+                token.wait(.05)
+        finally:self._operation.release()
+
     def _capture(self,recording,*,cancel_event=None):
         token=self._begin(cancel_event)
         try:

@@ -55,6 +55,48 @@ class AssemblyTests(unittest.TestCase):
 
 
 class ReceiverTests(unittest.TestCase):
+    def test_diagnostic_write_and_close_failures_do_not_stop_decoding(self):
+        from unittest.mock import Mock
+        trace=Mock()
+        trace.begin.side_effect=OSError('disk full')
+        trace.close.side_effect=OSError('flush failed')
+        trace.status.return_value={}
+        class Decoder:
+            def feed(self,data):return [b'jpeg']
+        with patch('video_stream.HEVCDecoder',return_value=Decoder()),patch('video_trace.VideoTrace',return_value=trace):
+            receiver=VideoReceiver(preview=False,diagnostics_dir='unused-mocked-directory')
+            try:
+                receiver.submit(packet(1));receiver.submit(packet(2))
+                until=time.monotonic()+1
+                while receiver.status()['decoded_frames']<2 and time.monotonic()<until:time.sleep(.01)
+                self.assertEqual(receiver.status()['decoded_frames'],2)
+                self.assertIn('diagnostics_error',receiver.status())
+                self.assertTrue(receiver.status()['worker_alive'])
+            finally:receiver.close()
+
+    def test_subject_endpoint_is_read_only_and_provider_errors_do_not_stop_video(self):
+        import json
+        from urllib.request import urlopen
+        class Decoder:
+            def feed(self,data):return [b'jpeg']
+        with patch('video_stream.HEVCDecoder',return_value=Decoder()):
+            receiver=VideoReceiver()
+            try:
+                url=receiver.start()
+                self.assertEqual(json.loads(urlopen(url+'subjects',timeout=2).read())['boxes'],[])
+                receiver.set_subject_provider(lambda:dict(detection_age_s=.01,
+                    candidates=[dict(id=10,bbox=dict(x=.5,y=.5,width=.2,height=.4))]))
+                boxes=json.loads(urlopen(url+'subjects',timeout=2).read())
+                self.assertEqual(boxes['boxes'][0]['left'],.4)
+                def broken():raise RuntimeError('bad snapshot')
+                receiver.set_subject_provider(broken)
+                self.assertEqual(json.loads(urlopen(url+'subjects',timeout=2).read())['boxes'],[])
+                self.assertTrue(receiver.submit(packet()))
+                until=time.monotonic()+1
+                while not receiver.status()['decoded_frames'] and time.monotonic()<until:time.sleep(.01)
+                self.assertEqual(receiver.status()['decoded_frames'],1)
+            finally:receiver.close()
+
     def test_blocked_decoder_cannot_block_submit_and_queue_is_bounded(self):
         entered, release = threading.Event(), threading.Event()
         class Decoder:
@@ -137,6 +179,60 @@ class CaptureDecoderTests(unittest.TestCase):
 
 
 
+class VideoFreezeRegressionTests(unittest.TestCase):
+    @unittest.skip("Private capture fixture excluded from this code-only export")
+    def test_timing_switch_in_real_capture_keeps_decoding(self):
+        from pathlib import Path
+        from messages import udp_records
+        from video_stream import HEVCDecoder
+        capture = Path(__file__).resolve().parents[1] / 'captures/circle-20261029.pcapng'
+        if not capture.exists():
+            self.skipTest('local capture unavailable')
+        try:
+            decoder = HEVCDecoder()
+        except ImportError:
+            self.skipTest('optional video dependencies unavailable')
+        assembler = VideoAssembler()
+        start = None
+        decoded = 0
+        for ts, side, raw in udp_records(capture):
+            if side != 'plane' or len(raw) <= 20 or raw[6] != 2:
+                continue
+            if start is None:
+                start = ts
+            if ts - start > 2.7:
+                break
+            with patch('video_stream.time.monotonic', return_value=ts):
+                payload = assembler.feed(raw)
+            if payload is not None:
+                decoded += len(decoder.feed(payload))
+        self.assertGreater(decoded, 68, 'decoder silently freezes at 58 frames on timing SPS change')
+
+
+    @unittest.skip("Private capture fixture excluded from this code-only export")
+    def test_missing_parameters_waits_and_later_irap_recovers(self):
+        from pathlib import Path
+        import re
+        from messages import udp_records
+        from video_stream import HEVCDecoder
+        capture = Path(__file__).resolve().parents[1] / 'captures/circle-20261029.pcapng'
+        if not capture.exists(): self.skipTest('local capture unavailable')
+        try: decoder = HEVCDecoder()
+        except ImportError: self.skipTest('optional video dependencies unavailable')
+        assembler = VideoAssembler()
+        payloads = []
+        for ts, side, raw in udp_records(capture):
+            if side != 'plane' or len(raw) <= 20 or raw[6] != 2: continue
+            with patch('video_stream.time.monotonic', return_value=ts):
+                payload = assembler.feed(raw)
+            if payload is not None: payloads.append(payload)
+            if len(payloads) >= 45: break
+        pframe = next(p for p in payloads if any((p[m.end()] >> 1) & 63 == 1 for m in re.finditer(b'\x00\x00\x01', p)))
+        self.assertEqual(decoder.feed(pframe), [])
+        self.assertEqual(decoder.feed(pframe), [])
+        self.assertGreater(decoder.warning_count, 0)
+        decoded = sum(len(decoder.feed(p)) for p in payloads)
+        self.assertGreater(decoded, 35, 'new in-band parameters and IRAP must recover decoding')
 
 
 class TimingParameterTests(unittest.TestCase):

@@ -11,7 +11,7 @@ from handshake import build_handshake
 from duml import encode_frame
 from reliable_transport import header
 from registration_exchange import PROFILE
-from messages import duml_messages
+from messages import duml_messages, udp_records
 from routing_sequences import RoutingSequenceStore
 
 
@@ -145,6 +145,44 @@ class ReliableConsoleTests(unittest.TestCase):
             thread.join(1)
             server.close()
 
+    @unittest.skip("Private capture fixture excluded from this code-only export")
+    def test_registration_answers_current_peer_sequence_over_reliable_data(self):
+        path = PROFILE.parent.parent / 'captures' / 'cold-all-retry-20261027.pcapng'
+        request = None
+        for _, direction, raw in udp_records(path):
+            if direction != 'plane' or int.from_bytes(raw[2:4], 'little') != 0x4a8c:
+                continue
+            for frame, _ in duml_messages(raw):
+                if frame[4:6] == b'\xe9\xee' and frame[9:11] == b'\x51\x41' and len(frame) == 26:
+                    request = encode_frame(0xe9, 0xee, 0x4321, 0x40, 0x51, 0x41, frame[11:-2])
+                    break
+            if request is not None:
+                break
+        self.assertIsNotNone(request)
+        server, stop, thread, captured = self.server(True, peer_request=request)
+        try:
+            controller = FlightController.connect('127.0.0.1', '127.0.0.1', server.getsockname()[1],
+                                                  0xebdf, 0x5ef8, attempts=1,
+                                                  retry_interval=0.1, prepare_seconds=0.3,
+                                                  reliable=True, registration_profile=PROFILE)
+            try:
+                self.assertGreater(controller.registration.responses, 0)
+                self.assertFalse(controller.takeoff_sent)
+            finally:
+                controller.close()
+        finally:
+            stop.set()
+            thread.join(1)
+            server.close()
+        responses = []
+        for raw in captured:
+            if raw[6] != 5:
+                continue
+            for frame, _ in duml_messages(raw):
+                if frame[9:11] == b'\x51\x41' and frame[8] == 0xc0:
+                    responses.append(frame)
+        self.assertTrue(responses)
+        self.assertEqual(responses[0][6:8], b'\x21\x43')
 
     def test_initialization_waits_for_delayed_device_and_video(self):
         server, stop, thread, captured = self.server(True, reply_after=2, send_video=True)
@@ -215,3 +253,5 @@ class ReliableConsoleTests(unittest.TestCase):
             server.close()
 
 
+if __name__ == '__main__':
+    unittest.main()

@@ -134,3 +134,5 @@ class MovementControlTests(unittest.TestCase):
         self.assertEqual(self.controller.movements, [])
 
 
+if __name__ == '__main__':
+    unittest.main()

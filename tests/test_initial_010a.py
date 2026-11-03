@@ -19,3 +19,5 @@ class Initial010ATests(unittest.TestCase):
             build_initial_010a_packet(0, 0x5460, 0x5460, 1)
 
 
+if __name__ == '__main__':
+    unittest.main()

@@ -1,4 +1,8 @@
 """Closed vocabulary Chinese flight intent parser; no network access."""
+
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "core"))
 from dataclasses import dataclass
 import re
 import unicodedata
@@ -27,6 +31,21 @@ SPECIAL.update({'相册':'camera_list','媒体列表':'camera_list',
                 '下载最新照片':'camera_download_photo','下载照片':'camera_download_photo',
                 '下载最新录像':'camera_download_video','下载最新视频':'camera_download_video',
                 '下载录像':'camera_download_video','下载视频':'camera_download_video'})
+SPECIAL.update({'滑动变焦':'dolly','开始滑动变焦':'dolly','准备滑动变焦':'dolly_prepare',
+                '停止滑动变焦':'dolly_stop','结束滑动变焦':'dolly_stop','取消滑动变焦':'dolly_stop'})
+DOLLY_SETTINGS={}
+for framing in ('半身','全身','远景'):
+    for prefix in ('','景别','拍摄景别','设置景别'):
+        DOLLY_SETTINGS[prefix+framing]=('dolly_framing',framing)
+for value,names in (('2',('2','二','两')),('3',('3','三'))):
+    for prefix in ('倍率','变焦倍率','变焦'):
+        for name in names:
+            for suffix in ('','倍'):
+                DOLLY_SETTINGS[prefix+name+suffix]=('dolly_zoom',value)
+for value,names in (('on',('开','开启')),('off',('关','关闭'))):
+    for prefix in ('渐远','变焦前渐远'):
+        for name in names:
+            DOLLY_SETTINGS[prefix+name]=('dolly_retreat',value)
 
 @dataclass(frozen=True)
 class VoiceIntent:
@@ -34,6 +53,7 @@ class VoiceIntent:
     direction: str = ''
     amount: float = 0
     unit: str = ''
+    value: str = ''
 
 def number(text):
     if text == '半':
@@ -67,6 +87,9 @@ def parse_voice_command(text):
             text = text[len(prefix):]
     if text in SPECIAL:
         return VoiceIntent(SPECIAL[text])
+    if text in DOLLY_SETTINGS:
+        kind,value=DOLLY_SETTINGS[text]
+        return VoiceIntent(kind,value=value)
     numeric = r'([\d.零一二两三四五六七八九十点半]+)'
     for pattern, kind in ((r'(?:设置环绕半径|环绕半径|设置半径|半径设为|半径)' + numeric + '(?:米|m)', 'circle_radius'),
                           ('环绕' + numeric + '(?:米|m)', 'circle'),

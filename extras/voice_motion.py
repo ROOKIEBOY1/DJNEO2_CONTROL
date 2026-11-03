@@ -1,4 +1,8 @@
 """Measured speed calibration and bounded, approximate motion plans."""
+
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "core"))
 from dataclasses import dataclass
 import json
 import math

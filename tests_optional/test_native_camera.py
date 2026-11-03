@@ -11,6 +11,17 @@ from duml import encode_frame
 
 
 class CameraTests(unittest.TestCase):
+    def test_video_preparation_sets_mode_without_starting_recording(self):
+        self.link.status.return_value['camera'].update(mode_raw=1,at=time.time()+1)
+        self.camera.prepare_video_mode()
+        self.assertEqual([c.args[:2] for c in self.link.request_camera.call_args_list],
+                         [(0xff,bytes.fromhex('003700020000'))])
+        self.assertFalse(self.camera.recording_requested)
+
+    def test_video_preparation_requires_matching_ack(self):
+        self.link.request_camera.return_value=b'\xe3'
+        with self.assertRaises(RuntimeError):self.camera.prepare_video_mode()
+
     def setUp(self):
         self.link = Mock()
         self.link.status.return_value = dict(device_verified=True, transport_mode='reliable',
@@ -59,6 +70,26 @@ class CameraTests(unittest.TestCase):
         self.assertEqual([c.args[:2] for c in self.link.request_camera.call_args_list],[(2,b'\x00')])
         self.assertTrue(errors)
 
+    @unittest.skip("Private capture fixture excluded from this code-only export")
+    def test_context_is_present_before_photo_mode_in_both_successful_phone_captures(self):
+        captures=Path(__file__).resolve().parents[1]/'captures'
+        for stamp in ('141959','164926'):
+            with self.subTest(capture=stamp):
+                with (captures/f'camera-media-20261030-{stamp}.duml.jsonl').open(encoding='utf-8') as source:
+                    rows=[json.loads(line) for line in source]
+                contexts=[r for r in rows if (r['side'],r['sender'],r['receiver'],r['command_set'],r['command_id'],r['payload'])
+                    ==('app',2,0x17,3,0xf9,PHOTO_CONTEXT_PAYLOAD.hex())]
+                modes=[r for r in rows if (r['side'],r['receiver'],r['command_set'],r['command_id'],r['payload'])
+                    ==('app',1,2,0xff,'003700010100')]
+                shutters=[r for r in rows if (r['side'],r['receiver'],r['command_set'],r['command_id'],r['payload'])
+                    ==('app',1,2,1,'01')]
+                self.assertTrue(contexts and modes and shutters)
+                self.assertLess(contexts[0]['at'],modes[0]['at'])
+                self.assertLess(modes[0]['at'],shutters[0]['at'])
+                context=contexts[0]
+                self.assertTrue(any((r['side'],r['sender'],r['receiver'],r['command_set'],r['command_id'],r['sequence'],r['payload'])
+                    ==('plane',0x17,2,3,0xf9,context['sequence'],'00'+PHOTO_CONTEXT_PAYLOAD.hex())
+                    and r['flags']&0x80 and 0<=r['at']-context['at']<=3 for r in rows))
 
     def test_bad_mode_reply_blocks_capture_and_recording(self):
         self.link.request_camera.return_value = b'\xe3'

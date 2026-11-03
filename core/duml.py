@@ -1,4 +1,8 @@
-"""DUML byte encoding and reflected CRC reference; no socket or UI."""
+"""Reproduce an observed DUML frame and exercise only local UDP loopback.
+
+This does not construct a complete drone packet or contact the drone.
+"""
+import socket
 
 def crc(data, initial, polynomial):
     value = initial
@@ -22,4 +26,10 @@ def encode_frame(sender, receiver, seq, flags, cmd_set, cmd_id, payload):
 def build_takeoff(seq):
     return encode_frame(2, 3, seq, 0x40, 3, 0x2a, b'\x01')
 
+def loopback_exchange(payload):
+    with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as receiver, socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sender:
+        receiver.bind(('127.0.0.1', 0))
+        receiver.settimeout(2)
+        sender.sendto(payload, receiver.getsockname())
+        return receiver.recvfrom(65535)[0]
 

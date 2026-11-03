@@ -1,6 +1,6 @@
-"""Desktop route detection adapter; replace with Wi-Fi network selection on phone."""
+"""Desktop route selection; does not send a datagram."""
 import socket
-from handshake import DRONE_IP, validate_drone_local_ip
+from handshake import DRONE_IP, DRONE_PORT, validate_drone_local_ip
 
 def detect_local_ip():
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:

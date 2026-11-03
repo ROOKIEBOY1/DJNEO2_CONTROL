@@ -25,3 +25,5 @@ class FlyCommandTests(unittest.TestCase):
                                           bytes.fromhex('8e338dbb02')), expected)
 
 
+if __name__ == '__main__':
+    unittest.main()

@@ -62,6 +62,21 @@ class NativeCircleWireTests(unittest.TestCase):
         self.worker.join(1)
         self.server.close()
 
+    def test_follow_capture_shapes_cross_reliable_wire_with_matched_replies(self):
+        import time
+        self.controller.device_verified = True
+        for receiver, cs, ci, payload in ((0x17, 3, 0xf9, bytes.fromhex('878867a30a000000')),
+                                         (0x92, 0x23, 0x13, bytes.fromhex('010a00')),
+                                         (0x92, 0x23, 0x15, b'')):
+            self.controller.last_receive_at = time.monotonic()
+            reply = self.controller.request_follow(receiver, cs, ci, payload, timeout=.5)
+            self.assertEqual(reply, b'\0'+payload if ci == 0xf9 else b'\0')
+        frames = [f for f in self.requests if (f[5], f[9], f[10]) in
+                  ((0x17, 3, 0xf9), (0x92, 0x23, 0x13), (0x92, 0x23, 0x15))]
+        self.assertEqual([f[11:-2].hex() for f in frames], ['878867a30a000000', '010a00', ''])
+        self.assertEqual(len({int.from_bytes(f[6:8], 'little') for f in frames}), 3)
+        self.assertTrue(self.controller.native_task_may_fly)
+
     def test_custom_receiver_replies_and_actual_payloads_cross_reliable_wire(self):
         for receiver, cs, ci, payload in ((0x17,3,0xf9,bytes.fromhex('878867a305000000')),
                 (0x92,3,0xf9,bytes.fromhex('4693270300000040')),
@@ -75,6 +90,27 @@ class NativeCircleWireTests(unittest.TestCase):
         self.assertEqual(self.requests[-1][11:-2], b'')
         self.assertEqual(self.requests[-1][9:11], b'\x23\x15')
         self.assertTrue(all(c['reply_hex'] is not None for c in self.controller.commands))
+
+    def test_dolly_zoom_exact_payloads_and_replies_cross_reliable_wire(self):
+        from dolly_zoom_protocol import selection_payload,parameter_writes
+        self.controller.device_verified=True
+        requests=[(0x17,3,0xf9,selection_payload())]+[(0x92,3,0xf9,p) for p in parameter_writes()]
+        requests += [(0x92,0x23,0x13,bytes.fromhex('010d00')),(0x92,0x23,0x15,b'')]
+        for receiver,cs,ci,payload in requests:
+            reply=self.controller.request_dolly_zoom(receiver,cs,ci,payload,timeout=.5)
+            self.assertEqual(reply,b'\0'+payload if ci==0xf9 else b'\0')
+            self.assertEqual(self.requests[-1][11:-2],payload)
+        self.assertTrue(self.controller.native_task_may_fly)
+        self.assertIsNotNone(self.controller.native_stop_confirmed_at)
+
+    def test_cancelled_or_guessed_dolly_request_does_not_reach_wire(self):
+        self.controller.device_verified=True
+        token=threading.Event();token.set()
+        with self.assertRaises(RuntimeError):
+            self.controller.request_dolly_zoom(0x92,0x23,0x13,bytes.fromhex('010d00'),cancel_event=token)
+        with self.assertRaises(ValueError):
+            self.controller.request_dolly_zoom(0x92,0x23,0x13,bytes.fromhex('010500'))
+        self.assertEqual(self.requests,[])
 
     def test_guessed_requests_and_canceled_start_do_not_reach_wire(self):
         with self.assertRaises(ValueError):

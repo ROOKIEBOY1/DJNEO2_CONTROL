@@ -1,13 +1,17 @@
 """Windows installed offline recognizer subprocess, with a restricted grammar."""
+
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "core"))
 import json
 import os
 from pathlib import Path
 import subprocess
 import tempfile
-from voice_commands import ALIASES, SPECIAL
+from voice_commands import ALIASES, SPECIAL, DOLLY_SETTINGS
 
 def grammar_phrases():
-    phrases = set(SPECIAL)
+    phrases = set(SPECIAL)|set(DOLLY_SETTINGS)
     numbers = ['半', '零点五', '一点五', '两'] + [str(i) for i in range(1, 21)] + [
         '一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二',
         '十五', '二十', '三十', '五十', '九十', '一百']

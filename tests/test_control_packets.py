@@ -28,6 +28,27 @@ def plane_reply(session=0xebdf):
 
 
 class ControlPacketTests(unittest.TestCase):
+    @unittest.skip("Private capture fixture excluded from this code-only export")
+    def test_actual_successful_takeoff_and_landing_replies_are_recognized(self):
+        from messages import duml_messages
+
+        path = Path(__file__).resolve().parents[1] / 'captures' / 'control-attempt-20261029-112328.json'
+        record = json.loads(path.read_text(encoding='utf-8'))
+        session = int(record['status']['session'], 0)
+        commands = {c['inner_sequence']: c['param'] for c in record['commands'] if 'param' in c}
+        found = set()
+        for row in record['incoming_control']:
+            raw = bytes.fromhex(row['hex'])
+            for frame, wrapper in duml_messages(raw):
+                sequence = int.from_bytes(frame[6:8], 'little')
+                if frame[4:6] == b'\x03\x02' and frame[9:11] == b'\x03\x2a' and sequence in commands:
+                    envelope = 'direct' if wrapper is None else wrapper[4:6].hex()
+                    self.assertEqual(find_fly_reply(raw, session, sequence), b'\x00',
+                                     f'param={commands[sequence]} envelope={envelope}')
+                    self.assertIsNone(find_fly_reply(raw, session ^ 1, sequence))
+                    self.assertIsNone(find_fly_reply(raw, session, (sequence + 1) & 0xffff))
+                    found.add(commands[sequence])
+        self.assertEqual(found, {1, 2})
 
     def test_takeoff_packet_wraps_real_tunnel(self):
         packet = build_fly_packet(0xebdf, 0x5ef8, 0xb5a0, 0x5ef8,
@@ -94,3 +115,5 @@ class ControlPacketTests(unittest.TestCase):
                                               0, 1, sender=0x1f))
 
 
+if __name__ == '__main__':
+    unittest.main()

@@ -137,6 +137,21 @@ class SaveTests(unittest.TestCase):
                 m.download_entry({'name':'a.jpg'},Path('a.jpg'),connect=False)
 
 
+class ConsoleTests(unittest.TestCase):
+    def test_list_and_download_plan_are_offline_and_identify_capture_scope(self):
+        import media_console
+        entry=dict(name='a.jpg',size=12,complete=True,replayable=True,requests=[])
+        with tempfile.TemporaryDirectory() as folder:
+            manifest=Path(folder)/'manifest.json'
+            manifest.write_text(json.dumps(dict(schema=1,host=m.HOST,entries=[entry])),encoding='utf-8')
+            output=io.StringIO()
+            with contextlib.redirect_stdout(output),patch.object(m.http.client,'HTTPConnection',side_effect=AssertionError('network')):
+                self.assertEqual(media_console.main(['list','--manifest',str(manifest)]),0)
+                self.assertEqual(media_console.main(['download','a.jpg','--manifest',str(manifest),
+                                                     '--output',str(Path(folder)/'a.jpg')]),0)
+            self.assertIn('捕获清单',output.getvalue())
+            self.assertIn('--connect',output.getvalue())
+            self.assertFalse((Path(folder)/'a.jpg').exists())
 
 
 class LiveBoundaryTests(unittest.TestCase):

@@ -1,6 +1,8 @@
 """Bounded Neo 2 handshake experiment. Sends no control or stick commands."""
 
+import argparse
 import ipaddress
+import json
 import secrets
 import socket
 import time
@@ -173,5 +175,3 @@ def probe_repeated(local_ip, remote_port, remote_ip, session, ack_word, attempts
                             'idle_packets_sent': idle_sent}
     return {'matched': False, 'attempts_sent': attempts,
             'reply_hex': seen[0] if seen else None, 'observed_packets': seen}
-
-

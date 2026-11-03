@@ -1,4 +1,8 @@
 """Offline Chinese voice control. No options prints help without microphone/network."""
+
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "core"))
 import argparse
 import datetime
 import json
@@ -6,8 +10,6 @@ from pathlib import Path
 import queue
 import threading
 import time
-import sys
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "core"))
 from voice_commands import ALIASES
 from voice_control import VoiceExecutor
 from voice_motion import CalibrationStore
@@ -77,18 +79,13 @@ def main():
                 raise RuntimeError(str(listening))
             print('离线中文识别引擎已加载：', first['recognizer'])
         if args.connect:
-            from flight_controller import FlightController
-            from network import detect_local_ip
-            from registration_exchange import PROFILE
+            from flight_controller import FlightController, detect_local_ip, PROFILE
             from routing_sequences import RoutingSequenceStore, historical_next_counter
             if args.video:
                 from video_stream import VideoReceiver
-                video = VideoReceiver(preview=True)
+                video = VideoReceiver(preview=True,diagnostics_dir=BASE/'captures'/'video-diagnostics')
                 print('相机预览地址（浏览器打开）：', video.start())
-            state_path = BASE / '.state' / 'routing-sequence.json'
-            if not state_path.exists():
-                raise RuntimeError('缺少接续路由状态；请先转移本设备最新 .state/routing-sequence.json，不从低序号重新开始')
-            routing = RoutingSequenceStore(state_path)
+            routing = RoutingSequenceStore(initial=lambda: historical_next_counter(BASE / 'captures'))
             controller = FlightController.connect(detect_local_ip(), reliable=True, tick_interval=.05,
                                                    registration_profile=PROFILE, routing_sequences=routing,
                                                    video_receiver=video)
@@ -102,8 +99,11 @@ def main():
         print('八方向均支持指定秒数，最长10秒；例如“向前飞十秒”“左转五秒”。')
         print('环绕：说“半径五米”，再说“环绕→确认”；或“环绕五米→确认”。默认2米，支持2–10米。')
         print('“停止环绕”或“停止”取消任务；“降落”停止任务并请求降落。环绕可能自动起飞。')
+        print('滑动变焦：景别半身/全身/远景；倍率两倍/三倍；渐远开启/关闭。默认半身、1–2倍、渐远开。')
+        print('说“滑动变焦→确认”后自动准备并启动，可能自动起飞；当前仅从地面启动。')
+        print('“停止滑动变焦”或“停止”取消任务；落地后可再次“滑动变焦→确认”。')
         print('相机口令：拍照 | 开始录像 | 停止录像 | 相册 | 下载最新照片 | 下载最新录像。')
-        print('原片保存到 captures/pc-downloads；录像需先停止后下载。')
+        print('原片保存到 开发基地1\\captures\\pc-downloads；录像需先停止后下载。')
         print('停止环绕后等飞机回报悬停，再说方向口令；落地后可直接“起飞→确认”或“环绕→确认”，无需重连。')
         print('键盘同样可输入：停止、降落、暂停语音、状态、退出。米数需先标定。')
         def keyboard():

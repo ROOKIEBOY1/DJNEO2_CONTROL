@@ -101,7 +101,11 @@ class RegistrationExchange:
                 result.append(encode_message(self.templates[name], next_sequence(), next_outer()))
             if now >= self._heartbeat_at:
                 payload = bytearray.fromhex(self.templates['heartbeat']['payload_hex'])
-                payload[24:27] = self.remote_state
+                # Three independent Fly captures retain local 05/04/04 while
+                # the aircraft reports 04/04/04 in flight. Startup 01/01/01 and
+                # unsupported states retain the existing behavior.
+                payload[24:27] = (b'\x05\x04\x04' if self.remote_state == b'\x04\x04\x04'
+                                  else self.remote_state)
                 payload[39:43] = (self.counter & 0xffffffff).to_bytes(4, 'little')
                 payload[43:47] = (int((now - self.started) * 1000) & 0xffffffff).to_bytes(4, 'little')
                 payload[52:55] = self.remote_tail

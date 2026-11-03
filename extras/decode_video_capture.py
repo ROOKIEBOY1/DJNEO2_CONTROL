@@ -1,11 +1,13 @@
 """Extract local JPEG proof from a saved pcapng; never connects to an aircraft."""
+
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "core"))
 import argparse
 import json
 from pathlib import Path
 
-from capture_io import udp_records
-import sys
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "core"))
+from messages import udp_records
 from video_stream import HEVCDecoder, VideoAssembler
 
 

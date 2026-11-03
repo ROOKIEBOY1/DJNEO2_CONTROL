@@ -27,6 +27,7 @@ class RoutingSequenceTests(unittest.TestCase):
             with RoutingSequenceStore(path, initial=1, block_size=4) as second:
                 self.assertEqual(second.next(), 0x10002)
 
+    @unittest.skip("Private capture fixture excluded from this code-only export")
     def test_bootstrap_uses_previous_actual_wire_counter(self):
         with tempfile.TemporaryDirectory() as directory:
             source = build_query_packet(0x1234, 0x4000, 0x4000, 0x4000, 7, 0x2233)
@@ -54,3 +55,5 @@ class RoutingSequenceTests(unittest.TestCase):
                 self.assertEqual(restarted.next(), 106)
 
 
+if __name__ == '__main__':
+    unittest.main()

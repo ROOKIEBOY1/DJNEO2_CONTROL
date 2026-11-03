@@ -1,4 +1,4 @@
-"""Explicitly confirmed native Circle task using capture-derived commands."""
+"""Explicitly initiated 2 m native Circle trial using capture-derived commands."""
 import threading
 import time
 import math

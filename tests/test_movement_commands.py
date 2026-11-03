@@ -24,3 +24,5 @@ class MovementCommandTests(unittest.TestCase):
         self.assertIsNone(parse_movement_command('起飞'))
 
 
+if __name__ == '__main__':
+    unittest.main()

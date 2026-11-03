@@ -1,4 +1,4 @@
-"""Receive-only video fragmentation reference; no decoder or web UI."""
+"""Receive-only packet assembly; no decoder or UI."""
 from collections import OrderedDict
 import time
 from outer import parse_outer

@@ -1,6 +1,6 @@
 {
   "base_commit": "cf8ccf7",
-  "description": "Protocol core plus optional video/voice and integrated camera/media restored from cf8ccf7. Imports adapted to current layout.",
+  "description": "Current control, follow, dolly, voice, camera and video-layer diagnostics; no packet captures, media or runtime state copied.",
   "modules": {
     "core/outer.py": "开发基地1/tools/capture_protocol.py",
     "core/messages.py": "开发基地1/tools/capture_messages.py",
@@ -34,12 +34,30 @@
     "extras/video_stream.py": "开发基地1/tools/video_stream.py",
     "extras/decode_video_capture.py": "开发基地1/tools/decode_video_capture.py",
     "extras/windows_speech.ps1": "开发基地1/tools/windows_speech.ps1",
-    "extras/capture_io.py": "开发基地1/tools/capture_messages.py:udp_records"
+    "extras/capture_io.py": "开发基地1/tools/capture_messages.py:udp_records",
+    "core/landing_confirmation.py": "开发基地1/tools/landing_confirmation.py",
+    "core/dolly_zoom_protocol.py": "开发基地1/tools/dolly_zoom_protocol.py",
+    "core/native_dolly_zoom.py": "开发基地1/tools/native_dolly_zoom.py",
+    "core/follow_protocol.py": "开发基地1/tools/follow_protocol.py",
+    "core/native_follow.py": "开发基地1/tools/native_follow.py",
+    "extras/follow_console.py": "开发基地1/tools/follow_console.py",
+    "extras/dolly_zoom_console.py": "开发基地1/tools/dolly_zoom_console.py",
+    "extras/circle_console.py": "开发基地1/tools/circle_console.py",
+    "extras/subject_preview.py": "开发基地1/tools/subject_preview.py",
+    "extras/video_trace.py": "开发基地1/tools/video_trace.py",
+    "extras/video_packet_trace.py": "开发基地1/tools/video_packet_trace.py",
+    "extras/diagnose_follow_layers.py": "开发基地1/tools/diagnose_follow_layers.py",
+    "extras/compare_video_layers.py": "开发基地1/tools/compare_video_layers.py",
+    "extras/diagnose_follow_video.py": "开发基地1/tools/diagnose_follow_video.py",
+    "extras/diagnose_dolly_video.py": "开发基地1/tools/diagnose_dolly_video.py",
+    "extras/flight_console.py": "开发基地1/tools/flight_console.py:main",
+    "extras/media_console.py": "开发基地1/tools/media_console.py"
   },
   "excluded": [
     "old HarmonyOS application shell",
     "raw captures, photos and videos",
     "runtime state and secrets",
     "private-fixture replay tests and standalone historical capture-analysis scripts"
-  ]
+  ],
+  "snapshot_date": "2026-11-03"
 }

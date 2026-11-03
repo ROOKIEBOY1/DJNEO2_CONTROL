@@ -54,3 +54,5 @@ class ReliableTransportTests(unittest.TestCase):
         self.assertEqual(packet[24:28], bytes.fromhex('584f584f'))
 
 
+if __name__ == '__main__':
+    unittest.main()

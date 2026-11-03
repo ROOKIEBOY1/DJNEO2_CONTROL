@@ -10,8 +10,8 @@ OBSERVED_TRAILER_PREFIX = bytes.fromhex('8e338dbb02')
 
 def build_fly_packet(session, video_seed, video_ack, video_word,
                      outer_sequence, inner_sequence, param):
-    if param not in (1, 2):
-        raise ValueError('Only captured takeoff and landing parameters are supported')
+    if param not in (1, 2, 0x1e):
+        raise ValueError('Only captured takeoff, landing and explicit landing-confirmation parameters are supported')
     frame = build_fly_tunnel(param, inner_sequence, outer_sequence,
                              OBSERVED_TRAILER_PREFIX)
     return _wrap_command(session, video_seed, video_ack, video_word, frame,

@@ -1,5 +1,11 @@
-"""Neo 2 control session with camera and media hooks; no CLI or UI."""
+"""Manual Neo 2 flight console. Live actions require --connect and typed commands.
 
+Takeoff, landing and forward movement have been observed on this aircraft.
+Other directions and reconnect robustness require further aircraft validation.
+A transport acknowledgement is separate from a flight-controller reply.
+"""
+
+import argparse
 import datetime
 import json
 import secrets
@@ -17,13 +23,15 @@ from handshake import (DRONE_IP, DRONE_PORT, SHORT_REPLY_BODY,
                              build_handshake, new_video_seed, validate_retry_bounds)
 from initial_010a import build_initial_010a_packet
 from neutral_stick import build_stick_packet
+from network import detect_local_ip
 from reliable_transport import ReliableTransport
 from registration_exchange import PROFILE, RegistrationExchange, encode_message
 from circle_protocol import (CIRCLE_SELECTION_PAYLOAD, CIRCLE_START_PAYLOAD, RADIUS_HASH_BYTES,
                              parse_radius_value, validate_radius)
 from messages import duml_messages
-from movement_commands import MOVEMENTS, validate_duration
-from routing_sequences import resequence_tunnels
+from movement_commands import COMMAND_HELP, MOVEMENTS, parse_movement_command, validate_duration
+from routing_sequences import (STATE_PATH, RoutingSequenceStore, historical_next_counter,
+                               resequence_tunnels)
 from landing_status import LandingStatus
 from subject_observation import SubjectObservation
 from native_camera import CameraObservation, validate_camera_request, PHOTO_CONTEXT_PAYLOAD
@@ -95,6 +103,7 @@ class FlightController:
         self.land_sent = False
         self.land_requested = False
         self.land_acknowledged = False
+        self._landing_confirmation_for=None
         self.auto_land_sent = False
         self._watchdog = None
         self.last_error = None
@@ -112,6 +121,12 @@ class FlightController:
         self._stop = threading.Event()
         self._reader = threading.Thread(target=self._read_loop, daemon=True)
         self._ticker = threading.Thread(target=self._tick_loop, daemon=True)
+        if self.video_receiver is not None and hasattr(self.video_receiver,'set_subject_provider'):
+            self.video_receiver.set_subject_provider(self.subject_snapshot)
+
+    def subject_snapshot(self):
+        with self._lock:
+            return self.subject_observation.snapshot()
 
     @classmethod
     def connect(cls, local_ip, remote_ip=DRONE_IP, remote_port=DRONE_PORT,
@@ -421,6 +436,30 @@ class FlightController:
             raise RuntimeError('本会话已请求降落；确认落地后退出重连，再启动环绕')
         return self._request_tunneled(receiver,command_set,command_id,payload,timeout,cancel_event,
                                       label='native_circle')
+
+    def request_dolly_zoom(self,receiver,command_set,command_id,payload,timeout=2.,cancel_event=None):
+        from dolly_zoom_protocol import validate_request
+        validate_request(receiver,command_set,command_id,payload)
+        stopping=(receiver,command_set,command_id)==(0x92,0x23,0x15)
+        if self._stop.is_set():raise RuntimeError('连接已关闭')
+        if not stopping:
+            if (not self.device_verified or time.monotonic()-self.last_receive_at>1
+                    or self.land_requested or self.land_sent):
+                raise RuntimeError('滑动变焦需要新鲜连接，且本轮未请求降落')
+        return self._request_tunneled(receiver,command_set,command_id,payload,timeout,cancel_event,
+                                      label='native_dolly_zoom')
+
+    def request_follow(self, receiver, command_set, command_id, payload, timeout=2., cancel_event=None):
+        from follow_protocol import validate_request
+        validate_request(receiver, command_set, command_id, payload)
+        stopping = (receiver, command_set, command_id) == (0x92, 0x23, 0x15)
+        if self._stop.is_set():
+            raise RuntimeError('连接已关闭')
+        if not stopping and (not self.device_verified or time.monotonic()-self.last_receive_at > 1
+                             or self.land_requested or self.land_sent):
+            raise RuntimeError('跟随需要新鲜连接，且本轮未请求降落')
+        return self._request_tunneled(receiver, command_set, command_id, payload, timeout, cancel_event,
+                                      label='native_follow')
 
     def request_camera(self, command_id, payload, timeout=2., cancel_event=None):
         validate_camera_request(command_id,payload)
@@ -761,6 +800,23 @@ class FlightController:
         reply = self._flight_command(2, timeout)
         self.land_acknowledged = reply == b'\x00'
         return reply
+
+    def confirm_landing(self,*,confirmed=False,timeout=2.):
+        from landing_confirmation import eligible_landing_confirmation
+        if not 0<timeout<=3:raise ValueError('降落确认等待时间需大于0且不超过3秒')
+        if not confirmed:raise ValueError('需要明确的本轮降落请求授权')
+        if (self._stop.is_set() or not self.device_verified or time.monotonic()-self.last_receive_at>1):
+            raise RuntimeError('降落确认需要已核验的新鲜连接')
+        with self._lock:
+            state=dict(land_requested=self.land_requested,land_sent=self.land_sent,
+                       land_acknowledged=self.land_acknowledged,landing_observation=self.landing_status.snapshot())
+            if not eligible_landing_confirmation(state):
+                raise RuntimeError('当前不在抓包对应的低空降落阶段；未发送确认指令')
+            requested=state['landing_observation']['requested_at']
+            if getattr(self,'_landing_confirmation_for',None)==requested:
+                raise RuntimeError('本次降落确认已发送，未重复发送')
+            self._landing_confirmation_for=requested
+        return self._flight_command(0x1e,timeout)
 
     def status(self):
         with self._lock:

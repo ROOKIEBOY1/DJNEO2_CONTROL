@@ -121,3 +121,5 @@ class HandshakeProbeTests(unittest.TestCase):
             self.assertEqual(received, [build_idle_packet(0x4a8c, 0x5460)] * result['idle_packets_sent'])
 
 
+if __name__ == '__main__':
+    unittest.main()

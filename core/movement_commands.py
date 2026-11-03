@@ -19,6 +19,10 @@ MOVEMENTS = {
 }
 ALIASES = {name: name for name in MOVEMENTS}
 ALIASES.update({spec[0]: name for name, spec in MOVEMENTS.items()})
+COMMAND_HELP = ('命令：状态 | 基础查询 | 查询设备 | 起飞 | 降落 | 回中 | 退出\n'
+                '落地后重飞：确认实际落地、已收到降落回复后，输入“再次起飞”\n'
+                '方向：前进 / 后退 / 上升 / 下降 / 左移 / 右移 / 左转 / 右转 [秒数]\n'
+                '例：后退0.5 或 左转 0.5；不写时间默认0.5秒，最长10秒，结束自动四轴回中')
 
 
 def validate_duration(seconds):

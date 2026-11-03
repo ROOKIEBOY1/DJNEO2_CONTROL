@@ -1,4 +1,4 @@
-﻿param([Parameter(Mandatory=$true)][string]$GrammarPath, [switch]$Check, [string]$Emulate)
+param([Parameter(Mandatory=$true)][string]$GrammarPath, [switch]$Check, [string]$Emulate)
 $ErrorActionPreference = 'Stop'
 [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
 function Emit($item) { [Console]::WriteLine(($item | ConvertTo-Json -Compress -Depth 4)) }

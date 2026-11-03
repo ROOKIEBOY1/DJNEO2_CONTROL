@@ -113,3 +113,5 @@ class HandoffTests(unittest.TestCase):
         self.assertTrue(errors)
 
 
+if __name__ == '__main__':
+    unittest.main()

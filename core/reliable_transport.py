@@ -1,5 +1,8 @@
-"""Capture-derived reliable UDP reference, validated with this research aircraft.
-Ported platform behavior and other aircraft remain unverified.
+"""Bounded reliable UDP transport, independently built from observed wire fields.
+
+Neo 2 captures establish the three window positions in type-4 status packets.
+The type-5 uplink format is a hypothesis informed by the first-generation
+neo-control implementation; aircraft acceptance must be checked separately.
 """
 
 from collections import OrderedDict
